@@ -72,6 +72,7 @@ public class Sandwich extends ProductMain implements Customizable {
         return basePrice + (bread != null ? bread.getBreadPrice() : 0) + toppingTotal;
     }
 
+//format display for other classes
     @Override
     public String toString() {
         String toppingList = toppings.isEmpty() ? "No Toppings Added" : toppings.stream()
