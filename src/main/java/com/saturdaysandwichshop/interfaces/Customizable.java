@@ -4,11 +4,8 @@ import java.util.List;
 
 public interface Customizable {
 
-    //get & display the options
-    void addOption(String option);
-    void removeOption(String option);
+    void addCustom(String option);
 
-    List<String> getOption();
 }
 
 

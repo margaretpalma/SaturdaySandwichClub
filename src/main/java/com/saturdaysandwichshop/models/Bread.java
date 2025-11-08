@@ -2,8 +2,9 @@ package com.saturdaysandwichshop.models;
 
 public class Bread {
 
+//info about bread type
+//white, wheat, rye, wrap
 
-    //white, wheat, rye, wrap
     private String breadType;
     private double breadPrice;
 
@@ -11,7 +12,7 @@ public class Bread {
         this.breadType = breadType;
         this.breadPrice = breadPrice;
     }
-
+//getters and setters
     public String getBreadType() {
         return breadType;
     }
@@ -26,5 +27,14 @@ public class Bread {
 
     public void setBreadPrice(double breadPrice) {
         this.breadPrice = breadPrice;
+    }
+
+//toString formatting
+    @Override
+    public String toString() {
+        return "Bread{" +
+                "breadType='" + breadType + '\'' +
+                ", breadPrice=" + breadPrice +
+                '}';
     }
 }

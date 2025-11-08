@@ -1,17 +1,21 @@
 package com.saturdaysandwichshop.models;
 
-import com.saturdaysandwichshop.interfaces.Priceing;
+import com.saturdaysandwichshop.interfaces.Pricing;
 
-public abstract class ProductMain implements Priceing {
+//abstract parent class items you can buy
+public abstract class ProductMain implements Pricing {
 
     protected String productName;
     protected double basePrice;
 
+//constructor
     public ProductMain(String productName, double basePrice) {
         this.productName = productName;
         this.basePrice = basePrice;
     }
 
+
+    //getters / setters
     public String getProductName() {
         return productName;
     }
@@ -28,9 +32,11 @@ public abstract class ProductMain implements Priceing {
         this.basePrice = basePrice;
     }
 
+//override price, define own logic in classes
     @Override
     public abstract double getPrice();
 
+//formatting
     @Override
     public String toString() {
         return productName + " - $" + basePrice;

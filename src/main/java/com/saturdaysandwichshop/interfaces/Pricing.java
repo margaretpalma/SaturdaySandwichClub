@@ -1,8 +1,8 @@
 package com.saturdaysandwichshop.interfaces;
 
-public interface Priceing {
+public interface Pricing {
 
-        //gets price
+        //gets price for products
     double getPrice();
 
             }

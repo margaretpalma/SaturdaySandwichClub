@@ -1,63 +1,37 @@
 package com.saturdaysandwichshop.models;
 
-import java.util.List;
+import com.saturdaysandwichshop.interfaces.Customizable;
 
-public class Sandwich {
+import java.util.ArrayList;
+import java.util.List;
+    //sandwich has-a topping/bread/size/toast (y/n)
+
+public class Sandwich extends ProductMain implements Customizable {
     //main item
     //sandwich options go here
-
+    //4 8 12
     private Bread bread;
     private List<Toppings> toppings;
     private int size;
     private boolean toasted;
-    private double basePrice;
 
-    public Sandwich(Bread bread, List<Toppings> toppings, int size, boolean toasted,
-                    double basePrice) {
+    public Sandwich(String productName, double basePrice, Bread bread,
+                    List<Toppings> toppings, int size, boolean toasted) {
+        super(productName, basePrice);
         this.bread = bread;
-        this.toppings = toppings;
+        this.toppings = new ArrayList<>();
         this.size = size;
         this.toasted = toasted;
-        this.basePrice = basePrice;
+
     }
 
-    public Bread getBread() {
-        return bread;
+    @Override
+    public void addCustom(String option) {
+        toppings.add(new Toppings(option, false,false, 0))
     }
 
-    public void setBread(Bread bread) {
-        this.bread = bread;
-    }
-
-    public List<Toppings> getToppings() {
-        return toppings;
-    }
-
-    public void setToppings(List<Toppings> toppings) {
-        this.toppings = toppings;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public boolean isToasted() {
-        return toasted;
-    }
-
-    public void setToasted(boolean toasted) {
-        this.toasted = toasted;
-    }
-
-    public double getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
+    @Override
+    public double getPrice() {
+        return 0;
     }
 }
