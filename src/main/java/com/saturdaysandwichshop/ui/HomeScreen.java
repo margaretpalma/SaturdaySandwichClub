@@ -6,9 +6,9 @@ public class HomeScreen {
     //main screen
 
     //display menu loops, runs until user chooses to exit
-    public void menuDisplay(){
+    public void menuDisplay() {
 
-        while(true){
+        while (true) {
             System.out.println("Welcome to Saturday Sandwich Shop");
 
             System.out.println("1) New Order ");
@@ -17,13 +17,12 @@ public class HomeScreen {
 
             int choice = ConsoleHelper.promptForInt("Enter Option Here (1/0)");
 
-            switch (choice){
-                case 1 ->  new OrderScreen().dispalyOrderMenu();
+            switch (choice) {
+                case 1 -> new OrderScreen().displayOrderScreen();
                 case 0 -> {
                     System.out.println("See you next Saturday!");
                     return;
                 }
-                System.out.println("Please Choose 1 or 0");
             }
         }
     }
