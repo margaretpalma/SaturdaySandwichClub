@@ -5,6 +5,7 @@ import com.saturdaysandwichshop.interfaces.Pricing;
 //abstract parent class items you can buy
 public abstract class ProductMain implements Pricing {
 
+//product name and starting price
     protected String productName;
     protected double basePrice;
 

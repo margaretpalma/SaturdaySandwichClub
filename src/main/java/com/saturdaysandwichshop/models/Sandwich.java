@@ -18,7 +18,7 @@ public class Sandwich extends ProductMain implements Customizable {
 
     public Sandwich(String productName, double basePrice, Bread bread,
                     List<Toppings> toppings, int size, boolean toasted) {
-        super(productName, basePrice);
+        super("Sandwich", 0.0);
         this.bread = bread;
         this.toppings = new ArrayList<>();
         this.size = size;

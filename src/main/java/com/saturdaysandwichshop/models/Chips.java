@@ -1,28 +1,32 @@
 package com.saturdaysandwichshop.models;
 
-public class Chips {
 
+public class Chips extends ProductMain {
+
+    //Doritos, Lays, Sunchips
+    //Small Medium Large
     private String chipType;
-    private double chipPrice;
-
-    public Chips(String chipType, double chipPrice) {
+//constructor
+    public Chips(String chipType, String chipSize) {
+        super("Chips", 0.0);
         this.chipType = chipType;
-        this.chipPrice = chipPrice;
     }
-
+//getters and setters
     public String getChipType() {
         return chipType;
-    }
 
+    }
     public void setChipType(String chipType) {
         this.chipType = chipType;
     }
-
-    public double getChipPrice() {
-        return chipPrice;
+//gets price
+    @Override
+    public double getPrice(){
+        return basePrice;
     }
-
-    public void setChipPrice(double chipPrice) {
-        this.chipPrice = chipPrice;
+//formatting
+    @Override
+    public String toString(){
+        return String.format(chipType + "Chips $" + basePrice);
     }
 }

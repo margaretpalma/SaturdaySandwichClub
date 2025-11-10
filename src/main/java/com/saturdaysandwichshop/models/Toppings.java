@@ -1,22 +1,21 @@
 package com.saturdaysandwichshop.models;
 
-public class Toppings {
+public class Toppings extends ProductMain {
 
     //toppings - premium or extra toppings
     //meats, cheeses, regular toppings
+    //inherits from productmain
+
 
     private String toppingName;
     private boolean premiumTopping;
     private boolean extraPortion;
-    private double toppingPrice;
 
-    //constructor
-    public Toppings(String toppingName, boolean premiumTopping,
-                    boolean extraPortion, double toppingPrice) {
+    public Toppings(String toppingName, boolean premiumTopping, boolean extraPortion, double price) {
+        super(toppingName, price);
         this.toppingName = toppingName;
         this.premiumTopping = premiumTopping;
         this.extraPortion = extraPortion;
-        this.toppingPrice = toppingPrice;
     }
 
     //getters and setters
@@ -26,25 +25,23 @@ public class Toppings {
     public void setToppingName(String toppingName) {
         this.toppingName = toppingName;
     }
-    public boolean isPremiumTopping() {
-        return premiumTopping;
-    }
-    public void setPremiumTopping(boolean premiumTopping) {
-        this.premiumTopping = premiumTopping;
-    }
-    public boolean isExtraPortion() {
-        return extraPortion;
-    }
-    public void setExtraPortion(boolean extraPortion) {
-        this.extraPortion = extraPortion;
-    }
-    public double getPrice() {
-        return toppingPrice;
-    }
-    public void setPrice(double price) {
-        this.toppingPrice = price;
-    }
+//    public boolean isPremiumTopping() {
+//        return premiumTopping;
+//    }
+//    public void setPremiumTopping(boolean premiumTopping) {
+//        this.premiumTopping = premiumTopping;
+//    }
+//    public boolean isExtraPortion() {
+//        return extraPortion;
+//    }
+//    public void setExtraPortion(boolean extraPortion) {
+//        this.extraPortion = extraPortion;
+//    }
 
+    @Override
+    public double getPrice(){
+        return basePrice;
+    }
 
     //to string
     @Override
@@ -52,9 +49,8 @@ public class Toppings {
         //ternary opterator - if//else
         //if isPremiumTopping is true return premium, if its not return regular
 
-        String type = premiumTopping ? "Premium Topping" : "Regular Topping";
-        String extra = extraPortion ? "(Extra Portion)" : "";
-        return String.format(toppingName,  extraPortion, toppingName, toppingPrice);
+        return toppingName + (extraPortion ? "(Extra Topping)" : "") +
+                "- $" + basePrice + (premiumTopping ? "(Premium Topping)" : "");
     }
 
 }

@@ -1,40 +1,39 @@
 package com.saturdaysandwichshop.models;
 
-public class Bread {
-
 //info about bread type
+
+public class Bread extends ProductMain {
+
 //white, wheat, rye, wrap
 
-    private String breadType;
-    private double breadPrice;
 
+
+    private String breadType;
+
+
+
+//constructor - super
     public Bread(String breadType, double breadPrice) {
+        super(breadType, breadPrice);
         this.breadType = breadType;
-        this.breadPrice = breadPrice;
     }
 //getters and setters
     public String getBreadType() {
         return breadType;
     }
-
     public void setBreadType(String breadType) {
         this.breadType = breadType;
     }
 
-    public double getBreadPrice() {
-        return breadPrice;
-    }
-
-    public void setBreadPrice(double breadPrice) {
-        this.breadPrice = breadPrice;
-    }
-
-//toString formatting
+//override
     @Override
-    public String toString() {
-        return "Bread{" +
-                "breadType='" + breadType + '\'' +
-                ", breadPrice=" + breadPrice +
-                '}';
+    public double getPrice() {
+        return basePrice;
+    }
+
+    @Override
+    public String toString(){
+    return breadType + "Bread $" + basePrice + "");
     }
 }
+
