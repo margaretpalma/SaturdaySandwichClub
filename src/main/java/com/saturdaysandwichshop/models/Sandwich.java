@@ -1,10 +1,11 @@
 package com.saturdaysandwichshop.models;
-
 import com.saturdaysandwichshop.interfaces.Customizable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+
+
 //sandwich has-a topping/bread/size/toast (y/n)
 
 public class Sandwich extends ProductMain implements Customizable {
@@ -16,8 +17,7 @@ public class Sandwich extends ProductMain implements Customizable {
     private int size;
     private boolean toasted;
 
-    public Sandwich(String productName, double basePrice, Bread bread,
-                    List<Toppings> toppings, int size, boolean toasted) {
+    public Sandwich(Bread bread, int size, boolean toasted) {
         super("Sandwich", 0.0);
         this.bread = bread;
         this.toppings = new ArrayList<>();
@@ -25,22 +25,28 @@ public class Sandwich extends ProductMain implements Customizable {
         this.toasted = toasted;
 
     }
+
     //get/set
     public Bread getBread() {
         return bread;
     }
+
     public void setBread(Bread bread) {
         this.bread = bread;
     }
+
     public int getSize() {
         return size;
     }
+
     public void setSize(int size) {
         this.size = size;
     }
+
     public boolean isToasted() {
         return toasted;
     }
+
     public void setToasted(boolean toasted) {
         this.toasted = toasted;
     }
@@ -48,20 +54,23 @@ public class Sandwich extends ProductMain implements Customizable {
     public List<Toppings> getToppings() {
         return toppings;
     }
+
+
     //add new topping
     @Override
     public void addCustom(String option) {
-        toppings.add(new Toppings(option, false,false, 0));
+        toppings.add(new Toppings(option, false, false, 0));
     }
-//gets the price
+
+    //gets the price
     @Override
     public double getPrice() {
-        double basePrice =
-                switch (size){
-            case 4 -> 5.50;
-            case 8 -> 7.00;
-            case 12 -> 8.50;
-                    default -> getBasePrice();
+        double sizePrice =
+                switch (size) {
+                    case 4 -> 5.50;
+                    case 8 -> 7.00;
+                    case 12 -> 8.50;
+                    default -> 0.0;
                 };
 
 //getting the price using streams
@@ -69,10 +78,11 @@ public class Sandwich extends ProductMain implements Customizable {
                 .mapToDouble(Toppings::getPrice)
                 .sum();
 
-        return basePrice + (bread != null ? bread.getBreadPrice() : 0) + toppingTotal;
+        return sizePrice + toppingTotal;
     }
 
-//format display for other classes
+
+    //format display for receipt
     @Override
     public String toString() {
         String toppingList = toppings.isEmpty() ? "No Toppings Added" : toppings.stream()
@@ -85,5 +95,4 @@ public class Sandwich extends ProductMain implements Customizable {
                 toppingList,
                 getPrice());
     }
-    }
-
+}

@@ -38,12 +38,13 @@ public class Toppings extends ProductMain {
 //        this.extraPortion = extraPortion;
 //    }
 
+//price override
     @Override
     public double getPrice(){
         return basePrice;
     }
 
-    //to string
+//to string
     @Override
     public String toString() {
         //ternary opterator - if//else
