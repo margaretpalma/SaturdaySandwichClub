@@ -9,7 +9,7 @@ public class Drinks extends ProductMain {
     private String drinkSize;
     private String drinkFlavor;
 //constructor
-    public Drinks(String drinkSize, String drinkFlavor) {
+    public Drinks(String drinkSize, String drinkFlavor, double drinkPrice) {
         super("Drink", drinkPrice);
         this.drinkSize = drinkSize;
         this.drinkFlavor = drinkFlavor;

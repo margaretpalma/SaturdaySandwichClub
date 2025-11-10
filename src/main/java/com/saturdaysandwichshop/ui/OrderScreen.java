@@ -62,17 +62,31 @@ public class OrderScreen {
         //cherry, orange grape?
         String flavor = ConsoleHelper.promptForString("Select Drink Flavor: ");
 
+        //price based in size
         double price = switch (size.toLowerCase()) {
             case "small" -> 2.00;
             case "medium" -> 2.50;
             case "large" -> 3.00;
-            default -> 2.00;
+            default -> 2.00;     //auto goes to size small
         };
 
-        Drinks drinks = new Drinks(size, flavor);
+        Drinks drinks = new Drinks(size, flavor, price);
         order.addItem(drinks);
 
         System.out.println("Your drink has been added!");
 
     }
+    //add chips - Doritos, Lays, Sunchips
+    private void addChips(){
+        String type = ConsoleHelper.promptForString("Choose Chip Type: (Doritos, Lays, Sunchips)");
+        Chips chips = new Chips(type);
+        order.addItem(chips);
+
+        System.out.println("Your Chips Have been added");
+    }
+
+    private void checkout(){
+        //
+    }
+
 }

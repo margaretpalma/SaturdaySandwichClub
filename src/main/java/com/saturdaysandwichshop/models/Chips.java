@@ -4,10 +4,10 @@ package com.saturdaysandwichshop.models;
 public class Chips extends ProductMain {
 
     //Doritos, Lays, Sunchips
-    //Small Medium Large
+
     private String chipType;
 //constructor
-    public Chips(String chipType, String chipSize) {
+    public Chips(String chipType) {
         super("Chips", 0.0);
         this.chipType = chipType;
     }
