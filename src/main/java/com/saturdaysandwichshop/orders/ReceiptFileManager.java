@@ -2,6 +2,7 @@ package com.saturdaysandwichshop.orders;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -36,21 +37,21 @@ public class ReceiptFileManager {
         //file IN receipt
 
     File file = new File(Receipt_Folder, timeStamp + ".txt");
-    try (FileWriter writer = new FileWriter(file))
+    try (FileWriter writer = new FileWriter(file)){
+        writer.write(Receipt.generate(order));
+
+        //print
+        System.out.println("Receipt Saved!" + file.getAbsolutePath());
     }
-
-
-
-
-
-    //catch exception
-
-
-
+    catch (IOException e){
+        System.out.println("Error Saving Receipt: " + e.getMessage());
+    }
+  }
 }
 
 
 
+//catch exception
 
 //implements saving - used for saving the receipts
 
