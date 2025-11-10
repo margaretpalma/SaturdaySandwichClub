@@ -8,27 +8,21 @@ import com.saturdaysandwichshop.utilities.ConsoleHelper;
 
 public class OrderScreen {
 
-    //add sandwich, drinks, chips, checkout, cancel
+//add sandwich, drinks, chips, checkout, cancel
 
     private final Order order = new Order();
 
-
-    //main menu
+//main menu
     public void displayOrderMenu() {
 
         while (true) {
-            System.out.println();
-        }
-
-        public void displayOrderScreen() {
-            System.out.println("""
-                    -----Order Menu ----
-                    1 - Add Sandwich
-                    2 - 
-                    3- 
-                    """);
-        }
-
+            System.out.println("Order Here!");
+// todo        System.out.println - add sandwich
+//            System.out.println - add drinks
+//            System.out.println - add chips
+//            System.out.println - checkout
+//            System.out.println - cancel order - back to homepage
+//
         int choice = ConsoleHelper.promptForInt("Choose An Option");
 
         switch (choice) {
@@ -49,9 +43,9 @@ public class OrderScreen {
         private void addSandwich() {
             int size = ConsoleHelper.promptForInt("Enter A Size: 4, 8, 12");
             String breadType = ConsoleHelper.promptForString("Enter Bread Type: White, Wheat, Rye, Wrap");
-            double breadPrice = 0;
 
-            Sandwich sandwich = new Sandwich("Sandwich", 0.0, new Bread(breadType, breadPrice), size, false);
+            Bread bread = new Bread(breadType, 0.0);
+            Sandwich sandwich = new Sandwich("Sandwich", 0.0, bread, size,false);
 
             order.addItem(sandwich);
             System.out.println("Sandwich Added");
@@ -59,10 +53,10 @@ public class OrderScreen {
 
         //add drink
         public void addDrink(){
-        String size = ConsoleHelper.promptForString("Select Drink Size: ")
+        String size = ConsoleHelper.promptForString("Select Drink Size: ");
         String flavor = ConsoleHelper.promptForString("Select Drink Flavor: ");
 
-        Drinks drink = new Drinks(size, flavor);
+        Drinks drink = new Drinks(size, flavor, 0.0);
             order.addItem(drink);
             System.out.println("Drink Added");
         }
@@ -71,7 +65,7 @@ public class OrderScreen {
 
         private void addChips(){
             String type = ConsoleHelper.promptForString("Select A Chip Size");
-            Chips chips = new Chips(type);
+            Chips chips = new Chips(type, 1.50);
             order.addItem(chips);
 
             System.out.println("Chips Added");

@@ -1,44 +1,22 @@
 package com.saturdaysandwichshop.models;
 
 
-public class Drinks {
+public class Drinks extends ProductMain {
 
 
     //size flavor price
     private String drinkSize;
     private String drinkflavor;
-    private double drinkPrice;
 
-
-
-
-    public Drinks(String drinkSize, String drinkflavor, double drinkPrice) {
+    public Drinks(String productName, double basePrice, String drinkSize, String drinkflavor) {
+        super(productName, basePrice);
         this.drinkSize = drinkSize;
         this.drinkflavor = drinkflavor;
-        this.drinkPrice = drinkPrice;
     }
 
-    public String getDrinkSize() {
-        return drinkSize;
-    }
 
-    public void setDrinkSize(String drinkSize) {
-        this.drinkSize = drinkSize;
-    }
-
-    public String getDrinkflavor() {
-        return drinkflavor;
-    }
-
-    public void setDrinkflavor(String drinkflavor) {
-        this.drinkflavor = drinkflavor;
-    }
-
-    public double getDrinkPrice() {
-        return drinkPrice;
-    }
-
-    public void setDrinkPrice(double drinkPrice) {
-        this.drinkPrice = drinkPrice;
+    @Override
+    public double getPrice(){
+        return basePrice;
     }
 }

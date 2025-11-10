@@ -16,7 +16,7 @@ public class Order {
 
     //add products
     public void addItem(ProductMain item){
-        item.add(item);
+        items.add(item);
     }
 
     //receipt and ui display items
