@@ -12,20 +12,22 @@ public class Receipt {
         String header = """
                 ---- Sat Sandwich Shop---""";
 
-        String items = order.getItems().isEmpty() ? "No Items.\n" : order.getItems().isEmpty() :
-        order.getItems().stream().map(items -> String.format("%-10 $%.2f",items.getProductName(),
-                items.getPrice())).collect(Collectors.joining("\n"));
+        String items = order.getItems().isEmpty()
+                ? "No Items!" :  order.getItems().stream()
+                .map(item -> String.format("%-10 $%.2f", item.getProductName(),
+                item.getPrice())).collect(Collectors.joining("\n"));
 
         //footer
         String footer = String.format("""
                 Total: $%2f""", order.getTotal());
 
+        //pront receipt
         return header + items + footer;
     }
-
+}
     //util methods for building?
 
-    //local date local time (normal receipt information)
+        //local date local time (normal receipt information)
 
-    //format for intellij terminal ?
-}
+        //format for intellij terminal ?
+
