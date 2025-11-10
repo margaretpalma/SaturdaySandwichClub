@@ -84,12 +84,17 @@ public class OrderScreen {
         System.out.println("Your Chips Have been added");
     }
 
+    //receipt generator
+    //receipt file manager
+    //saving receipt
+
     private void checkout(){
         System.out.println("---Your Order---");
-        //receipt generator
-        //receipt file manager
-        //saving receipt
-
+        System.out.println(Receipt.generate(order));
+        //.txt file
+        ReceiptFileManager manager = new ReceiptFileManager();
+        manager.saveReceipt(order);
+        System.out.println("Receipt Saved");
         System.out.println("Return to home screen ");
     }
 
