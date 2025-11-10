@@ -17,13 +17,17 @@ public class HomeScreen {
 
             int choice = ConsoleHelper.promptForInt("Enter Option Here (1/0)");
 
-//            switch (choice) {
-//                case 1 -> new OrderScreen().displayOrderScreen();
-//                case 0 -> {
-//                    System.out.println("See you next Saturday!");
-//                    return;
-
-
+            switch (choice) {
+                case 1 -> {
+                    OrderScreen orderScreen = new OrderScreen();
+                    orderScreen.displayOrderMenu();
                 }
+                case 0 -> {
+                    System.out.println("See You Next Saturday!");
+                    return;
+                }
+                default -> System.out.println("Invalid choice, try again.");
             }
         }
+    }
+}
