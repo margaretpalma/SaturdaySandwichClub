@@ -42,12 +42,10 @@ public class OrderScreen {
     //add sandwich
     //white, wheat, rye, wrap
     private void addSandwich() {
+
         int size = ConsoleHelper.promptForInt("Enter A Size: 4, 8, 12");
         String breadType = ConsoleHelper.promptForString("Enter Bread Type: White, Wheat, Rye, Wrap");
-
-        String isToasted = ConsoleHelper.promptForString("Would You Like The Sandwich Toasted?(Y/N)").toLowerCase();
-
-        boolean toasted = isToasted.startsWith("y");
+        boolean toasted = ConsoleHelper.promptForString("Sandwhich Toasted? (Y/N)").toLowerCase().startsWith("y");
 
         Sandwich sandwich = new Sandwich(new Bread(breadType), size, toasted);
 
@@ -56,10 +54,11 @@ public class OrderScreen {
     }
 
     //add drink
+    //size and flavor
     public void addDrink() {
         String size = ConsoleHelper.promptForString("Select Drink Size: Small/Medium/Large");
 
-        //cherry, orange grape?
+        //todo cherry, orange grape? add flavor options - where?
         String flavor = ConsoleHelper.promptForString("Select Drink Flavor: ");
 
         //price based in size
@@ -76,7 +75,7 @@ public class OrderScreen {
         System.out.println("Your drink has been added!");
 
     }
-    //add chips - Doritos, Lays, Sunchips
+    //add chips - Doritos, Lays, Sunchips - 1.50
     private void addChips(){
         String type = ConsoleHelper.promptForString("Choose Chip Type: (Doritos, Lays, Sunchips)");
         Chips chips = new Chips(type);
@@ -86,7 +85,12 @@ public class OrderScreen {
     }
 
     private void checkout(){
-        //
+        System.out.println("---Your Order---");
+        //receipt generator
+        //receipt file manager
+        //saving receipt
+
+        System.out.println("Return to home screen ");
     }
 
 }
