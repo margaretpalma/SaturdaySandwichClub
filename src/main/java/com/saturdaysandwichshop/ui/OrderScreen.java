@@ -180,6 +180,8 @@ public class OrderScreen {
     }
 
     //add regular topping - free
+
+    //todo: make regular toppings LOOP
     private void addRegularTopping(Sandwich s) {
         System.out.println("""
                 Regular Topping:
@@ -269,13 +271,32 @@ public class OrderScreen {
     private void addCheeseToppings(Sandwich s) {
         System.out.println("""
                 Cheese:
-                1. American
-                2. Provolone
-                3. Cheddar
-                4. Swiss
+                1) American
+                2) Provolone
+                3) Cheddar
+                4) Swiss
+                0) Cancel
                 """);
 
-        String t = ConsoleHelper.promptForString("Choose Cheese ");
+        int choice = ConsoleHelper.promptForInt("Choose Cheese: ");
+
+        String cheese = switch (choice){
+            case 1 -> "American";
+            case 2 -> "Provolone";
+            case 3 -> "Cheddar";
+            case 4 -> "Swiss";
+            case 0 -> {
+                System.out.println("No cheese added!");
+                yield null;
+            }
+            default -> {
+                System.out.println("Invalid cheese choice");
+                yield null;
+            }
+        };
+
+        if (cheese == null) return;
+
         boolean extra = ConsoleHelper.promptForString("Extra (Y/N)").toLowerCase().startsWith("y");
 
         double base = switch (s.getSize()) {
@@ -292,33 +313,53 @@ public class OrderScreen {
             default -> 0.30;
         };
 
-        double price = extra ? base + extraCost : base;
+        double finalPrice = extra ? base + extraCost : base;
 
-        Toppings topping = new Toppings(t, true, extra, price);
-
-
+        Toppings topping = new Toppings(cheese, true, extra, finalPrice);
         s.getToppings().add(topping);
-        System.out.println(t + "added");
-
+        System.out.println(cheese + "added");
     }
 
 
         private void addSauce(Sandwich s){
             System.out.println("""
                     Sauces:
-                    -mayo
-                    -mustard
-                    -ketchup
-                    -ranch
-                    -thousand island
-                    -vinaigrette
+                    1) Mayo
+                    2) Mustard
+                    3) Ketchup
+                    4) Ranch
+                    5) Thousand Island
+                    6) Vinaigrette
+                    0) Cancel
                     """);
-         String t = ConsoleHelper.promptForString("Choose Sauce type");
 
-         Toppings topping = new Toppings(t, false, false, 0.0);
+        int choice = ConsoleHelper.promptForInt("Choose A Sauce: ");
+        String sauce = switch (choice){
+            case 1 -> "Mayo";
+            case 2 -> "Mustard";
+            case 3 -> "Ketchup";
+            case 4 -> "Ranch";
+            case 5 -> "Thousand Island";
+            case 6 -> "Vinaigrette";
+            case 0 -> {
+                System.out.println("No Sauce");
+                yield null;
+            }
+            default -> {
+                System.out.println("Invalid option");
+                yield null;
+            }
+        };
+        if(sauce == null) return;
+
+        Toppings topping = new Toppings(sauce, false, false, 0.0);
          s.getToppings().add(topping);
-            System.out.println(t + "Added");
+            System.out.println(sauce + "Added");
     }
+
+
+
+//checkout
     private void checkout () {
 
         if (order.getItems().isEmpty()) {
