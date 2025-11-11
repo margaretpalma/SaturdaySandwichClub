@@ -319,7 +319,7 @@ public class OrderScreen {
     }
     private void checkout () {
 
-        if(order.getItems().isEmpty()){
+        if (order.getItems().isEmpty()) {
             System.out.println("Order empty!");
             return;
         }
@@ -330,6 +330,8 @@ public class OrderScreen {
         manager.saveReceipt(order);
 
         System.out.println("rceipt saved");
+        System.out.println("Returning to home screen");
+        return;
 
-
+    }
     }
