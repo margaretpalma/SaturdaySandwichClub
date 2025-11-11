@@ -29,7 +29,7 @@ public class OrderScreen {
                 case 1 -> addSandwich();
                 case 2 -> addDrink();
                 case 3 -> addChips();
-                case 4 -> checkout();
+              //  case 4 -> checkout();
                 case 0 -> {
                     System.out.println("Your Order Has Been Cancelled");
                     return;
@@ -43,63 +43,127 @@ public class OrderScreen {
     //white, wheat, rye, wrap
     private void addSandwich() {
 
-        int size = ConsoleHelper.promptForInt("Enter A Size: 4, 8, 12");
-        String breadType = ConsoleHelper.promptForString("Enter Bread Type: White, Wheat, Rye, Wrap");
-        boolean toasted = ConsoleHelper.promptForString("Sandwhich Toasted? (Y/N)").toLowerCase().startsWith("y");
+        System.out.println("""
+                ---Bread Options ---
+                1) White
+                2) Wheat
+                3) Rye
+                4) Wrap
+                """);
+        int breadChoice = ConsoleHelper.promptForInt("Choose a bread:");
+        String breadType = switch (breadChoice){
+
+            case 1 -> "White";
+            case 2 -> "Wheat";
+            case 3 -> "Rye";
+            case 4 -> "Wrap";
+            default -> "White";
+        };
+//size
+        System.out.println("""
+                ---Size Option---
+                1. 4
+                2. 8
+                3. 12
+                """);
+
+        int sizeChoice = ConsoleHelper.promptForInt("Choose Size: ");
+        int size = switch (sizeChoice) {
+            case 1 -> 4;
+            case 2 -> 8;
+            case 3 -> 12;
+            default -> 4;
+        };
+
+//toasted(y/n)
+
+        boolean toasted = ConsoleHelper.promptForString("Toasted? (Y/N)")
+                .toLowerCase().startsWith("y");
 
         Sandwich sandwich = new Sandwich(new Bread(breadType), size, toasted);
         addToppings(sandwich);
-        System.out.println("toppings added: " + sandwich.getToppingsList());
         order.addItem(sandwich);
-        System.out.println("Your sandwhich has been added");
+        System.out.println("Sandwich Added");
     }
 
     //add drink
     //size and flavor
     public void addDrink() {
-        String size = ConsoleHelper.promptForString("Select Drink Size: Small/Medium/Large");
 
-        //todo cherry, orange grape? add flavor options - where?
-        String flavor = ConsoleHelper.promptForString("Select Drink Flavor: ");
+        System.out.println("""
+                ---Drink Sizes---
+                1) Small ($2.00)
+                2) Medium ($2.50)
+                3) Large ($3.00)
+                """);
 
-        //price based in size
-        double price = switch (size.toLowerCase()) {
-            case "small" -> 2.00;
-            case "medium" -> 2.50;
-            case "large" -> 3.00;
-            default -> 2.00;     //auto goes to size small
+        int drinkSizeChoice = ConsoleHelper.promptForInt("Choose Size: ");
+
+        String size = switch (drinkSizeChoice) {
+            case 1 -> "Small";
+            case 2 -> "Medium";
+            case 3 -> "Large";
+            default -> "Small";
         };
 
-        Drinks drinks = new Drinks(size, flavor, price);
-        order.addItem(drinks);
+        double price = switch (drinkSizeChoice) {
+            case 1 -> 2.00;
+            case 2 -> 2.50;
+            case 3 -> 3.00;
+            default -> 2.00;
+        };
 
+        int drinkFlavorChoice = ConsoleHelper.promptForInt("Choose Flavor: ");
+        String type = switch (drinkFlavorChoice) {
+            case 1 -> "Coke";
+            case 2 -> "Sprite";
+            case 3 -> "Lemonade";
+            default -> "Coke";
+        };
+
+        Drinks drink = new Drinks(size,type, price);
+        order.addItem(drink);
         System.out.println("Your drink has been added!");
 
     }
+
     //add chips - Doritos, Lays, Sunchips - 1.50
-    private void addChips(){
-        String type = ConsoleHelper.promptForString("Choose Chip Type: (Doritos, Lays, Sunchips)");
+    private void addChips() {
+        System.out.println("""
+                ---Chip Options---
+                1) Doritos
+                2) Lays
+                3) Sunchips
+                """);
+        int chipChoice = ConsoleHelper.promptForInt("Choose Chips: ");
+
+        String type = switch (chipChoice) {
+            case 1 -> "Doritos";
+            case 2 -> "Lays";
+            case 3 -> "Sunchips";
+            default -> "Doritos";
+        };
+
         Chips chips = new Chips(type);
         order.addItem(chips);
-
-        System.out.println("Your Chips Have been added");
+        System.out.println(type + "Your Chips Have been added");
     }
 
     //toppings
-    private void addToppings(Sandwich sandwich){
-        while (true){
+    private void addToppings(Sandwich sandwich) {
+        while (true) {
             System.out.println("""
                     ---Choose Toppings---
                     1. Add Regular Topping
                     2. Add Meat (Premium)
                     3. Add Cheese (Premium)
                     4. Add Sauce
-                    0. End Toppings   
+                    0. End Toppings
                     """);
 
             int choice = ConsoleHelper.promptForInt("Choose An Option: ");
 
-            switch (choice){
+            switch (choice) {
                 case 1 -> addRegularTopping(sandwich);
                 case 2 -> addMeatToppings(sandwich);
                 case 3 -> addCheeseToppings(sandwich);
@@ -114,28 +178,52 @@ public class OrderScreen {
     }
 
     //add regular topping - free
-    private void addRegularTopping(Sandwich s){
+    private void addRegularTopping(Sandwich s) {
         System.out.println("""
-                Regular Topping: 
-                -lettuce
-                -peppers
-                -onions
-                -tomatoes
-                -jalapenos
-                -cucumbers
-                -pickles
-                -guacamole
-                -mushrooms
+                Regular Topping:
+                1) Lettuce
+                2) Peppers
+                3) Onions
+                4) Tomatoes
+                5) Jalapenos
+                6) Cucumbers
+                7) Pickles
+                8) Guacamole
+                9) Mushrooms
                 """);
 
-        String t = ConsoleHelper.promptForString("Choose Toppings:  ");
-        Toppings toppings = new Toppings(t, false, false, 0.0);
+        int choice = ConsoleHelper.promptForInt("Choose a topping: ");
+        //if 0;
 
-        s.getToppings().add(toppings);
-        System.out.println(t + "added!");
+        if (choice == 0) {
+            System.out.println("No Regular Topping Added");
+            return;
+        }
+
+        String toppingName = switch (choice) {
+            case 1 -> "Lettuce";
+            case 2 -> "Peppers";
+            case 3 -> "Onion";
+            case 4 -> "Tomatoes";
+            case 5 -> "Jalapenos";
+            case 6 -> "Cucumbers";
+            case 7 -> "Pickles";
+            case 8 -> "Guacamole";
+            case 9 -> "Mushroom";
+            default -> null;
+        };
+
+        if (toppingName == null) {
+            System.out.println("Invalid choice, try again!");
+            return;
+        }
+
+        Toppings topping = new Toppings(toppingName, false, false, 0.0);
+        s.getToppings().add(topping);
+
+        System.out.println(toppingName + "added");
     }
 
-//
     //meats
     //steak, ham, salami, roast beef, chicken, bacon
     private void addMeatToppings(Sandwich s) {
@@ -173,17 +261,15 @@ public class OrderScreen {
         System.out.println(t + "added");
     }
 
-
     //cheese toppings .75, 1.50, 2.25
     //american, provolone, cheddar, swiss
     //extra - .30, .60, .90
-
     private void addCheeseToppings(Sandwich s) {
         System.out.println("""
-                Cheese: 
+                Cheese:
                 1. American
                 2. Provolone
-                3. Cheddar 
+                3. Cheddar
                 4. Swiss
                 """);
 
@@ -213,18 +299,7 @@ public class OrderScreen {
         System.out.println(t + "added");
 
     }
-        //receipt generator
-        //receipt file manager
-        //saving receipt
-        private void checkout () {
-            System.out.println("---Your Order---");
-            System.out.println(Receipt.generate(order));
-            //.txt file
-            ReceiptFileManager manager = new ReceiptFileManager();
-            manager.saveReceipt(order);
-            System.out.println("Receipt Saved");
-            System.out.println("Return to home screen ");
-        }
+
 
         private void addSauce(Sandwich s){
             System.out.println("""
@@ -242,4 +317,19 @@ public class OrderScreen {
          s.getToppings().add(topping);
             System.out.println(t + "Added");
     }
+    private void checkout () {
+
+        if(order.getItems().isEmpty()){
+            System.out.println("Order empty!");
+            return;
+        }
+        System.out.println("\n---Your Order ---");
+        System.out.println(Receipt.generate(order));
+
+        ReceiptFileManager manager = new ReceiptFileManager();
+        manager.saveReceipt(order);
+
+        System.out.println("rceipt saved");
+
+
     }
