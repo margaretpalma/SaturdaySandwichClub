@@ -274,6 +274,7 @@ public class OrderScreen {
             System.out.println(" Added " + toppingName);
         }
     }
+
     //meats
     //steak, ham, salami, roast beef, chicken, bacon
     private void addMeatToppings(Sandwich s) {
@@ -331,6 +332,7 @@ public class OrderScreen {
         System.out.println(meat + "added");
     }
 
+
     //cheese toppings .75, 1.50, 2.25
     //american, provolone, cheddar, swiss
     //extra - .30, .60, .90
@@ -344,24 +346,26 @@ public class OrderScreen {
                 0) Cancel
                 """);
 
-        int choice = ConsoleHelper.promptForInt("Choose Cheese: ");
+        int choice;
+        while (true){
+            choice = ConsoleHelper.promptForInt("Choose cheese");
+            if (choice >= 0 && choice <= 4)
+                break;
+            System.out.println("invalid choice");
+        }
+
+        if (choice == 0){
+            System.out.println("No cheese");
+            return;
+        }
 
         String cheese = switch (choice){
             case 1 -> "American";
             case 2 -> "Provolone";
             case 3 -> "Cheddar";
             case 4 -> "Swiss";
-            case 0 -> {
-                System.out.println("No cheese added!");
-                yield null;
-            }
-            default -> {
-                System.out.println("Invalid cheese choice");
-                yield null;
-            }
-        };
-
-        if (cheese == null) return;
+            default -> null;
+            };
 
         boolean extra = ConsoleHelper.promptForString("Extra (Y/N)").toLowerCase().startsWith("y");
 
@@ -381,8 +385,7 @@ public class OrderScreen {
 
         double finalPrice = extra ? base + extraCost : base;
 
-        Toppings topping = new Toppings(cheese, true, extra, finalPrice);
-        s.getToppings().add(topping);
+        s.getToppings().add(new Toppings(cheese, true, extra, finalPrice));
         System.out.println(cheese + "added");
     }
 
@@ -396,13 +399,21 @@ public class OrderScreen {
                     4) Ranch
                     5) Thousand Island
                     6) Vinaigrette
-                   
+              
                     0) Cancel
                     """);
 
             //todo: au jus? in sauce class ?
 
-        int choice = ConsoleHelper.promptForInt("Choose A Sauce: ");
+        int choice;
+        while (true){
+            choice = ConsoleHelper.promptForInt("Choose sauce");
+            if (choice >= 0 && choice <= 6)
+                break;
+            System.out.println("No sauce");
+            return;
+        }
+
         String sauce = switch (choice){
             case 1 -> "Mayo";
             case 2 -> "Mustard";
