@@ -25,7 +25,12 @@ public class OrderScreen {
                     0) Cancel Order
                     """);
 
-            int choice = ConsoleHelper.promptForInt("Choose An Option");
+            choice = ConsoleHelper.promptForInt("Choose An Option");
+            if (choice >= 0 && choice <= 4)
+                break;
+
+            System.out.println("Ivalid");
+        }
 
             switch (choice) {
                 case 1 -> addSandwich();
@@ -39,7 +44,6 @@ public class OrderScreen {
                 default -> System.out.println("Sorry, Invalid Selection");
             }
         }
-    }
 
     //add sandwich
     //white, wheat, rye, wrap
@@ -113,7 +117,13 @@ public class OrderScreen {
                 3) Large ($3.00)
                 """);
 
-        int drinkSizeChoice = ConsoleHelper.promptForInt("Choose Size: ");
+        int drinkSizeChoice;
+        while(true){
+            drinkSizeChoice = ConsoleHelper.promptForInt("Choose size");
+            if (drinkSizeChoice >= 1 && drinkSizeChoice <= 3)
+                break;
+            System.out.println("invalid");
+        }
 
         String size = switch (drinkSizeChoice) {
             case 1 -> "Small";
@@ -128,16 +138,30 @@ public class OrderScreen {
             case 3 -> 3.00;
             default -> 2.00;
         };
+//flavor
+        System.out.println("""
+                ---Drink Flavor---
+                1) Coke
+                2) Sprite
+                3) Lemonade
+                """);
 
-        int drinkFlavorChoice = ConsoleHelper.promptForInt("Choose Flavor: ");
-        String type = switch (drinkFlavorChoice) {
+        int drinkFlavorChoice;
+        while (true){
+            drinkFlavorChoice = ConsoleHelper.promptForInt("Choose flavor");
+            if (drinkFlavorChoice >= 1 && drinkFlavorChoice <= 3)
+                break;
+            System.out.println("Invalid choice");
+        }
+
+        String flavor = switch (drinkFlavorChoice) {
             case 1 -> "Coke";
             case 2 -> "Sprite";
             case 3 -> "Lemonade";
             default -> "Coke";
         };
 
-        Drinks drink = new Drinks(size,type, price);
+        Drinks drink = new Drinks(size,flavor, price);
         order.addItem(drink);
         System.out.println("Your drink has been added!");
 
@@ -151,8 +175,13 @@ public class OrderScreen {
                 2) Lays
                 3) Sunchips
                 """);
-        int chipChoice = ConsoleHelper.promptForInt("Choose Chips: ");
-
+        int chipChoice;
+        while (true){
+            chipChoice = ConsoleHelper.promptForInt("Choose chips");
+            if (chipChoice >= 1 && chipChoice <= 3)
+                break;
+            System.out.println("Invalid choice");
+        }
         String type = switch (chipChoice) {
             case 1 -> "Doritos";
             case 2 -> "Lays";
@@ -198,56 +227,58 @@ public class OrderScreen {
 
     //todo: make regular toppings LOOP
     private void addRegularTopping(Sandwich s) {
-        System.out.println("""
-                Regular Topping:
-                1) Lettuce
-                2) Peppers
-                3) Onions
-                4) Tomatoes
-                5) Jalapenos
-                6) Cucumbers
-                7) Pickles
-                8) Guacamole
-                9) Mushrooms
-                """);
 
-        int choice = ConsoleHelper.promptForInt("Choose a topping: ");
-        //if 0;
+        while (true) {
 
-        if (choice == 0) {
-            System.out.println("No Regular Topping Added");
-            return;
+            System.out.println("""
+                    Regular Topping:
+                    1) Lettuce
+                    2) Peppers
+                    3) Onions
+                    4) Tomatoes
+                    5) Jalapenos
+                    6) Cucumbers
+                    7) Pickles
+                    8) Guacamole
+                    9) Mushrooms
+                    0)End of Regular Toppings
+                    """);
+
+            int choice = ConsoleHelper.promptForInt("Choose a topping: ");
+            //if 0;
+
+            if (choice == 0) {
+                System.out.println("Regular Topping Added");
+                return;
+            }
+
+            String toppingName = switch (choice) {
+                case 1 -> "Lettuce";
+                case 2 -> "Peppers";
+                case 3 -> "Onion";
+                case 4 -> "Tomatoes";
+                case 5 -> "Jalapenos";
+                case 6 -> "Cucumbers";
+                case 7 -> "Pickles";
+                case 8 -> "Guacamole";
+                case 9 -> "Mushroom";
+                default -> null;
+            };
+
+            if (toppingName == null) {
+                System.out.println("Invalid choice, try again!");
+                return;
+            }
+
+            s.getToppings().add(new Toppings(toppingName, false, false, 0));
+            System.out.println(" Added " + toppingName);
         }
-
-        String toppingName = switch (choice) {
-            case 1 -> "Lettuce";
-            case 2 -> "Peppers";
-            case 3 -> "Onion";
-            case 4 -> "Tomatoes";
-            case 5 -> "Jalapenos";
-            case 6 -> "Cucumbers";
-            case 7 -> "Pickles";
-            case 8 -> "Guacamole";
-            case 9 -> "Mushroom";
-            default -> null;
-        };
-
-        if (toppingName == null) {
-            System.out.println("Invalid choice, try again!");
-            return;
-        }
-
-        Toppings topping = new Toppings(toppingName, false, false, 0.0);
-        s.getToppings().add(topping);
-
-        System.out.println(toppingName + "added");
     }
-
     //meats
     //steak, ham, salami, roast beef, chicken, bacon
     private void addMeatToppings(Sandwich s) {
         System.out.println("""
-                Meat Options:
+               --- Meat Options---
                 1. Steak
                 2. Ham
                 3. Salami
@@ -256,7 +287,29 @@ public class OrderScreen {
                 6. Bacon
                 """);
 
-        String t = ConsoleHelper.promptForString("Choose Meat: ");
+        int choice;
+        while (true){
+            choice = ConsoleHelper.promptForInt("Choose Meat");
+            if (choice >= 0 && choice <= 6)
+                break;
+            System.out.println("Invalid choice");
+        }
+
+        if (choice == 0){
+            System.out.println("No meat added!");
+            return;
+        }
+
+        String meat = switch (choice){
+            case 1 -> "Steak";
+            case 2 -> "Ham";
+            case 3 -> "Salami";
+            case 4 -> "Roast Beef";
+            case 5 -> "Chicken";
+            case 6 -> "Bacon";
+            default -> null;
+        };
+
         boolean extra = ConsoleHelper.promptForString("Extra Portion: (Y/N").toLowerCase().startsWith("y");
 
         double base = switch (s.getSize()) {
@@ -273,11 +326,9 @@ public class OrderScreen {
             default -> 0.50;
         };
 
-        double price = extra ? base + extraCost : base;
-        Toppings topping = new Toppings(t, true, extra, price);
-
-        s.getToppings().add(topping);
-        System.out.println(t + "added");
+        double totalPrice = extra ? base + extraCost : base;
+        s.getToppings().add(new Toppings(meat, true, extra, totalPrice));
+        System.out.println(meat + "added");
     }
 
     //cheese toppings .75, 1.50, 2.25

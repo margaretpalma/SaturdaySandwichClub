@@ -43,6 +43,6 @@ public class ConsoleHelper {
         scanner.nextLine();
         return result;
 
-
     }
+
 }
