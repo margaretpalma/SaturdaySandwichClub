@@ -52,9 +52,16 @@ public class OrderScreen {
                 3) Rye
                 4) Wrap
                 """);
-        int breadChoice = ConsoleHelper.promptForInt("Choose a bread:");
-        String breadType = switch (breadChoice){
+      //missing loop to stop from repeating
 
+        int breadChoice;
+        while (true) {
+            breadChoice = ConsoleHelper.promptForInt("Choose bread");
+            if (breadChoice >= 1 && breadChoice <= 4)
+                break;
+            System.out.println("Invalid");
+        }
+        String breadType = switch (breadChoice){
             case 1 -> "White";
             case 2 -> "Wheat";
             case 3 -> "Rye";
@@ -68,8 +75,14 @@ public class OrderScreen {
                 2. 8
                 3. 12
                 """);
+        int sizeChoice;
+        while (true) {
+            sizeChoice = ConsoleHelper.promptForInt("Choose Size: ");
+           if(sizeChoice >= 1 && sizeChoice <= 3)
+               break;
+            System.out.println("Invalid");
 
-        int sizeChoice = ConsoleHelper.promptForInt("Choose Size: ");
+        }
         int size = switch (sizeChoice) {
             case 1 -> 4;
             case 2 -> 8;
@@ -82,6 +95,7 @@ public class OrderScreen {
         boolean toasted = ConsoleHelper.promptForString("Toasted? (Y/N)")
                 .toLowerCase().startsWith("y");
 
+//sandwich making
         Sandwich sandwich = new Sandwich(new Bread(breadType), size, toasted);
         addToppings(sandwich);
         order.addItem(sandwich);
@@ -170,6 +184,7 @@ public class OrderScreen {
                 case 2 -> addMeatToppings(sandwich);
                 case 3 -> addCheeseToppings(sandwich);
                 case 4 -> addSauce(sandwich);
+                // case 5 -> addSides(sandwich);
                 case 0 -> {
                     System.out.println("Finished Topping.");
                     return;
@@ -330,8 +345,11 @@ public class OrderScreen {
                     4) Ranch
                     5) Thousand Island
                     6) Vinaigrette
+                   
                     0) Cancel
                     """);
+
+            //todo: au jus? in sauce class ?
 
         int choice = ConsoleHelper.promptForInt("Choose A Sauce: ");
         String sauce = switch (choice){
@@ -356,8 +374,6 @@ public class OrderScreen {
          s.getToppings().add(topping);
             System.out.println(sauce + "Added");
     }
-
-
 
 //checkout
     private void checkout () {
