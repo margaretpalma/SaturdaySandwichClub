@@ -158,8 +158,14 @@ public class OrderScreen {
             default -> 1.00;
         };
 
-        double price = extra ? base + (base / 2) : base;
+        double extraCost = switch (s.getSize()) {
+            case 4 -> 0.50;
+            case 8 -> 1.00;
+            case 12 -> 1.50;
+            default -> 0.50;
+        };
 
+        double price = extra ? base + extraCost : base;
         Toppings topping = new Toppings(t, true, extra, price);
 
         s.getToppings().add(topping);
@@ -171,7 +177,7 @@ public class OrderScreen {
     //american, provolone, cheddar, swiss
     //extra - .30, .60, .90
 
-    private void addCheeseToppings(Sandwich s){
+    private void addCheeseToppings(Sandwich s) {
         System.out.println("""
                 Cheese: 
                 1. American
@@ -180,24 +186,59 @@ public class OrderScreen {
                 4. Swiss
                 """);
 
+        String t = ConsoleHelper.promptForString("Choose Cheese ");
+        boolean extra = ConsoleHelper.promptForString("Extra (Y/N)").toLowerCase().startsWith("y");
+
+        double base = switch (s.getSize()) {
+            case 4 -> 0.75;
+            case 8 -> 1.50;
+            case 12 -> 2.25;
+            default -> 0.75;
+        };
+
+        double extraCost = switch (s.getSize()) {
+            case 4 -> 0.30;
+            case 8 -> 0.60;
+            case 12 -> 0.90;
+            default -> 0.30;
+        };
+
+        double price = extra ? base + extraCost : base;
+
+        Toppings topping = new Toppings(t, true, extra, price);
 
 
+        s.getToppings().add(topping);
+        System.out.println(t + "added");
 
     }
-}
+        //receipt generator
+        //receipt file manager
+        //saving receipt
+        private void checkout () {
+            System.out.println("---Your Order---");
+            System.out.println(Receipt.generate(order));
+            //.txt file
+            ReceiptFileManager manager = new ReceiptFileManager();
+            manager.saveReceipt(order);
+            System.out.println("Receipt Saved");
+            System.out.println("Return to home screen ");
+        }
 
+        private void addSauce(Sandwich s){
+            System.out.println("""
+                    Sauces:
+                    -mayo
+                    -mustard
+                    -ketchup
+                    -ranch
+                    -thousand island
+                    -vinaigrette
+                    """);
+         String t = ConsoleHelper.promptForString("Choose Sauce type");
 
-
-    //receipt generator
-    //receipt file manager
-    //saving receipt
-    private void checkout(){
-        System.out.println("---Your Order---");
-        System.out.println(Receipt.generate(order));
-        //.txt file
-        ReceiptFileManager manager = new ReceiptFileManager();
-        manager.saveReceipt(order);
-        System.out.println("Receipt Saved");
-        System.out.println("Return to home screen ");
+         Toppings topping = new Toppings(t, false, false, 0.0);
+         s.getToppings().add(topping);
+            System.out.println(t + "Added");
     }
-
+    }
