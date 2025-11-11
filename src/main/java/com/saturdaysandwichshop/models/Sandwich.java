@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-
 //sandwich has-a topping/bread/size/toast (y/n)
 
 public class Sandwich extends ProductMain implements Customizable {
@@ -59,9 +57,8 @@ public class Sandwich extends ProductMain implements Customizable {
     //add new topping
     @Override
     public void addCustom(String option) {
-        toppings.add(new Toppings(option, false, false, 0));
+        toppings.add(new Toppings(option, false, false, 0.0));
     }
-
     //gets the price
     @Override
     public double getPrice() {
@@ -80,6 +77,16 @@ public class Sandwich extends ProductMain implements Customizable {
 
         return sizePrice + toppingTotal;
     }
+
+    public String getToppingsList() {
+        if (toppings.isEmpty()) return "No toppings";
+        return toppings.stream()
+                .map(t -> t.getToppingName() +
+                        (t.isExtraPortion() ? " extra" : "") +
+                        (t.isPremiumTopping() ? " premium" : ""))
+                .collect(Collectors.joining(", "));
+    }
+
 
 
     //format display for receipt

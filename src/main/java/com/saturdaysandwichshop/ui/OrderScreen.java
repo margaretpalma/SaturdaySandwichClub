@@ -48,7 +48,8 @@ public class OrderScreen {
         boolean toasted = ConsoleHelper.promptForString("Sandwhich Toasted? (Y/N)").toLowerCase().startsWith("y");
 
         Sandwich sandwich = new Sandwich(new Bread(breadType), size, toasted);
-        //addToppings(sandwich);
+        addToppings(sandwich);
+        System.out.println("toppings added: " + sandwich.getToppingsList());
         order.addItem(sandwich);
         System.out.println("Your sandwhich has been added");
     }

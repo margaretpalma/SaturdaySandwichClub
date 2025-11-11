@@ -25,18 +25,18 @@ public class Toppings extends ProductMain {
     public void setToppingName(String toppingName) {
         this.toppingName = toppingName;
     }
-//    public boolean isPremiumTopping() {
-//        return premiumTopping;
-//    }
-//    public void setPremiumTopping(boolean premiumTopping) {
-//        this.premiumTopping = premiumTopping;
-//    }
-//    public boolean isExtraPortion() {
-//        return extraPortion;
-//    }
-//    public void setExtraPortion(boolean extraPortion) {
-//        this.extraPortion = extraPortion;
-//    }
+    public boolean isPremiumTopping() {
+        return premiumTopping;
+    }
+    public void setPremiumTopping(boolean premiumTopping) {
+        this.premiumTopping = premiumTopping;
+    }
+    public boolean isExtraPortion() {
+        return extraPortion;
+    }
+    public void setExtraPortion(boolean extraPortion) {
+        this.extraPortion = extraPortion;
+    }
 
 //price override
     @Override
