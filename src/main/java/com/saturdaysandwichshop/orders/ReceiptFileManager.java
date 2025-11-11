@@ -31,7 +31,7 @@ public class ReceiptFileManager {
    //timestamp for receipts - Local Date
 
     public void saveReceipt(Order order){
-            String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyMMdd-HHmmSS"));
+            String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyMMdd-HHmmss"));
 
 
         //file IN receipt

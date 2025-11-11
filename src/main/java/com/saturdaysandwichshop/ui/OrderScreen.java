@@ -16,20 +16,22 @@ public class OrderScreen {
     public void displayOrderMenu() {
 
         while (true) {
-            System.out.println("Order Here!");
-// todo        System.out.println - add sandwich
-//            System.out.println - add drinks
-//            System.out.println - add chips
-//            System.out.println - checkout
-//            System.out.println - cancel order - back to homepage
-//
+            System.out.println("""
+                    --Order Menu--
+                    1) Add Sandwich
+                    2) Add Drink
+                    3) Add Chips
+                    4) Checkout
+                    0) Cancel Order
+                    """);
+
             int choice = ConsoleHelper.promptForInt("Choose An Option");
 
             switch (choice) {
                 case 1 -> addSandwich();
                 case 2 -> addDrink();
                 case 3 -> addChips();
-              //  case 4 -> checkout();
+                case 4 -> checkout();
                 case 0 -> {
                     System.out.println("Your Order Has Been Cancelled");
                     return;
