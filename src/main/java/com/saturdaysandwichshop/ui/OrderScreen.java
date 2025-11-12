@@ -282,10 +282,6 @@ public class OrderScreen {
 
             if (meat == null) continue;
 
-            boolean extra = OrderScreenHelper.promptForYesOrNo("Extra Meats " + meat + "?");
-            if(!extra){
-                System.out.println("Skipped Extra" + meat);
-                continue;
             }
             double base = switch (s.getSize()) {
                 case 4 -> 1.00;
@@ -340,6 +336,9 @@ public class OrderScreen {
                 continue;
 
             boolean extra = OrderScreenHelper.promptForYesOrNo("extra cheese? " + cheese + "");
+            if(!extra){
+                System.out.println("Skipped Extra" + cheese);
+                continue;
 
             double base = switch (s.getSize()) {
                 case 4 -> 0.75;
