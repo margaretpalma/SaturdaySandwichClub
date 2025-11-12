@@ -29,7 +29,7 @@ public class OrderScreen {
                     0) Cancel Order
                     """);
 
-            int choice = OrderScreenHelper.promptForOption("Choose An Option",0,4);
+            int choice = OrderScreenHelper.promptForOption("Choose An Option", 0, 4);
 
             switch (choice) {
                 case 1 -> addSandwich();
@@ -59,13 +59,13 @@ public class OrderScreen {
         //missing loop to stop from repeating
         int breadOption = OrderScreenHelper.promptForOption("Choose bread option", 1, 4);
 
-    String breadType = switch (breadOption) {
-        case 1 -> "White";
-        case 2 -> "Wheat";
-        case 3 -> "Rye";
-        case 4 -> "Wrap";
-        default -> "White";
-    };
+        String breadType = switch (breadOption) {
+            case 1 -> "White";
+            case 2 -> "Wheat";
+            case 3 -> "Rye";
+            case 4 -> "Wrap";
+            default -> "White";
+        };
 
 //size
         System.out.println("""
@@ -75,7 +75,7 @@ public class OrderScreen {
                 3. 12
                 """);
 
-        int sizeChoice = OrderScreenHelper.promptForOption("Choose Size Option",1,3);
+        int sizeChoice = OrderScreenHelper.promptForOption("Choose Size Option", 1, 3);
 
         int size = switch (sizeChoice) {
             case 1 -> 4;
@@ -86,7 +86,7 @@ public class OrderScreen {
 
 //toasted(y/n)
 
-        boolean toasted = OrderScreenHelper.promptForToasted("Would you like your sandwich toasted?");
+        boolean toasted = OrderScreenHelper.promptForYesOrNo("Would you like your sandwich toasted?");
 
 
 //sandwich making
@@ -107,7 +107,7 @@ public class OrderScreen {
                 3) Large ($3.00)
                 """);
 
-       int drinkSizeChoice = OrderScreenHelper.promptForOption("Choose A Drink Size", 1, 3);
+        int drinkSizeChoice = OrderScreenHelper.promptForOption("Choose A Drink Size", 1, 3);
 
         String size = switch (drinkSizeChoice) {
             case 1 -> "Small";
@@ -139,7 +139,7 @@ public class OrderScreen {
             default -> "Coke";
         };
 
-        Drinks drink = new Drinks(size,flavor, price);
+        Drinks drink = new Drinks(size, flavor, price);
         order.addItem(drink);
         System.out.println("Your drink has been added!" + size + " " + flavor);
 
@@ -263,46 +263,48 @@ public class OrderScreen {
                  0. Done Adding Meat
                 """);
 
-        List<Integer> choices = OrderScreenHelper.promptForChoices("Enter Meat Number (1, 3",6);
+        List<Integer> choices = OrderScreenHelper.promptForChoices("Enter Meat Number (1, 3", 6);
 
-        if (choices.isEmpty()){
+        if (choices.isEmpty()) {
             System.out.println("Finished add Meat");
             return;
         }
 
         for (int choice : choices) {
-        String meat = switch (choice){
-            case 1 -> "Steak";
-            case 2 -> "Ham";
-            case 3 -> "Salami";
-            case 4 -> "Roast Beef";
-            case 5 -> "Chicken";
-            case 6 -> "Bacon";
-            default -> null;
+            String meat = switch (choice) {
+                case 1 -> "Steak";
+                case 2 -> "Ham";
+                case 3 -> "Salami";
+                case 4 -> "Roast Beef";
+                case 5 -> "Chicken";
+                case 6 -> "Bacon";
+                default -> null;
+            };
+
+            if (meat == null) continue;
+
+            boolean extra = OrderScreenHelper.promptForYesOrNo("Extra Meats " + meat + "?");
+
+            double base = switch (s.getSize()) {
+                case 4 -> 1.00;
+                case 8 -> 2.00;
+                case 12 -> 3.00;
+                default -> 1.00;
+            };
+
+            double extraCost = switch (s.getSize()) {
+                case 4 -> 0.50;
+                case 8 -> 1.00;
+                case 12 -> 1.50;
+                default -> 0.50;
+            };
+
+            double totalPrice = extra ? base + extraCost : base;
+            s.getToppings().add(new Toppings(meat, true, extra, totalPrice));
+            System.out.println(meat + "added");
         };
-
-        boolean extra = ConsoleHelper.promptForString("Extra Portion: (Y/N").toLowerCase().startsWith("y");
-
-        double base = switch (s.getSize()) {
-            case 4 -> 1.00;
-            case 8 -> 2.00;
-            case 12 -> 3.00;
-            default -> 1.00;
-        };
-
-        double extraCost = switch (s.getSize()) {
-            case 4 -> 0.50;
-            case 8 -> 1.00;
-            case 12 -> 1.50;
-            default -> 0.50;
-        };
-
-        double totalPrice = extra ? base + extraCost : base;
-        s.getToppings().add(new Toppings(meat, true, extra, totalPrice));
-        System.out.println(meat + "added");
     }
-
-
+}
     //cheese toppings .75, 1.50, 2.25
     //american, provolone, cheddar, swiss
     //extra - .30, .60, .90

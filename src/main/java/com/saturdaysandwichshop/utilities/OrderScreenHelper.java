@@ -43,7 +43,7 @@ public class OrderScreenHelper {
     }
         //boolean for y/n
         //true if yes , false if no
-        public static boolean promptForToasted(String message) {
+        public static boolean promptForYesOrNo(String message) {
             while (true) {
 
                 int choice = ConsoleHelper.promptForInt(message + "(1. Yes, 2. No)");
