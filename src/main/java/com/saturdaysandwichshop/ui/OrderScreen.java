@@ -4,6 +4,7 @@ import com.saturdaysandwichshop.orders.Order;
 import com.saturdaysandwichshop.orders.Receipt;
 import com.saturdaysandwichshop.orders.ReceiptFileManager;
 import com.saturdaysandwichshop.utilities.ConsoleHelper;
+import com.saturdaysandwichshop.utilities.OrderScreenHelper;
 
 
 public class OrderScreen {
@@ -25,7 +26,7 @@ public class OrderScreen {
                     0) Cancel Order
                     """);
 
-            int choice = ConsoleHelper.promptForInt("Choose An Option");
+            int choice = OrderScreenHelper.promptForOption("Choose An Option",0,4);
 
             switch (choice) {
                 case 1 -> addSandwich();
@@ -42,6 +43,7 @@ public class OrderScreen {
     }
     //add sandwich
     //white, wheat, rye, wrap
+
     private void addSandwich() {
 
         System.out.println("""
@@ -51,22 +53,17 @@ public class OrderScreen {
                 3) Rye
                 4) Wrap
                 """);
-      //missing loop to stop from repeating
+        //missing loop to stop from repeating
+        int breadOption = OrderScreenHelper.promptForOption("Choose bread option", 1, 4);
 
-        int breadChoice;
-        while (true) {
-            breadChoice = ConsoleHelper.promptForInt("Choose bread");
-            if (breadChoice >= 1 && breadChoice <= 4)
-                break;
-            System.out.println("Invalid");
-        }
-        String breadType = switch (breadChoice){
-            case 1 -> "White";
-            case 2 -> "Wheat";
-            case 3 -> "Rye";
-            case 4 -> "Wrap";
-            default -> "White";
-        };
+    String breadType = switch (breadOption) {
+        case 1 -> "White";
+        case 2 -> "Wheat";
+        case 3 -> "Rye";
+        case 4 -> "Wrap";
+        default -> "White";
+    };
+
 //size
         System.out.println("""
                 ---Size Option---
@@ -74,14 +71,9 @@ public class OrderScreen {
                 2. 8
                 3. 12
                 """);
-        int sizeChoice;
-        while (true) {
-            sizeChoice = ConsoleHelper.promptForInt("Choose Size: ");
-           if(sizeChoice >= 1 && sizeChoice <= 3)
-               break;
-            System.out.println("Invalid");
 
-        }
+        int sizeChoice = OrderScreenHelper.promptForOption("Choose Size Option",1,3);
+
         int size = switch (sizeChoice) {
             case 1 -> 4;
             case 2 -> 8;
@@ -450,5 +442,4 @@ public class OrderScreen {
         System.out.println("Returning to home screen");
         return;
 
-    }
     }

@@ -40,12 +40,12 @@ public class OrderScreenHelper {
 
             //sout here for invalid choice
         }
-
+    }
       //boolean for y/n
        //true if yes , false if no
      boolean promptForToasted(String message){
             while (true) {
-                int choice = ConsoleHelper.promptForInt(" 1. Yes, 2. No")
+                int choice = ConsoleHelper.promptForInt(" 1. Yes, 2. No");
                 if (choice == 1)
                     return true;
                 if (choice == 2)
