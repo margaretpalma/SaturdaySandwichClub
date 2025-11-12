@@ -21,7 +21,7 @@ public class OrderScreenHelper {
         //streams to clean input
         //convert string to int
         //.filter only numbers in range
-        return Arrays.stream(input.split("-"))
+        return Arrays.stream(input.split(","))
                 .map(String::trim)
                 .filter(s -> s.matches("\\d+"))
                 .map(Integer::parseInt)
@@ -35,21 +35,24 @@ public class OrderScreenHelper {
         int choice;
         while (true) {
             choice = ConsoleHelper.promptForInt(message);
-            if (choice >= min && choice <= max) ;
-            return choice;
-
-            //sout here for invalid choice
+            if (choice >= min && choice <= max) {
+                return choice;
+            }
+            System.out.println("Invalid choice," + min + "and" + max);
         }
     }
-      //boolean for y/n
-       //true if yes , false if no
-     boolean promptForToasted(String message){
+        //boolean for y/n
+        //true if yes , false if no
+        public static boolean promptForToasted(String message) {
             while (true) {
-                int choice = ConsoleHelper.promptForInt(" 1. Yes, 2. No");
+
+                int choice = ConsoleHelper.promptForInt(message + "(1. Yes, 2. No)");
                 if (choice == 1)
                     return true;
                 if (choice == 2)
                     return false;
+
+                System.out.println("Invalid Choice 1 for yes 2 for no ");
             }
         }
     }

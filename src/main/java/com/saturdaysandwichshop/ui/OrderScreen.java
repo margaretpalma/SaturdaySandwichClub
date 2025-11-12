@@ -5,6 +5,9 @@ import com.saturdaysandwichshop.orders.Receipt;
 import com.saturdaysandwichshop.orders.ReceiptFileManager;
 import com.saturdaysandwichshop.utilities.ConsoleHelper;
 import com.saturdaysandwichshop.utilities.OrderScreenHelper;
+import jdk.jshell.spi.ExecutionControl;
+
+import java.util.List;
 
 
 public class OrderScreen {
@@ -83,14 +86,9 @@ public class OrderScreen {
 
 //toasted(y/n)
 
-        int toastedChoice;
-        while(true){
-            toastedChoice = ConsoleHelper.promptForInt("Toasted? 1. Yes 2.No");
-            if(toastedChoice == 1 || toastedChoice == 2)
-                break;
-            System.out.println("Invalid, try again");
-        }
-        boolean toasted = (toastedChoice == 1);
+        boolean toasted = OrderScreenHelper.promptForToasted("Would you like your sandwich toasted?");
+
+
 //sandwich making
         Sandwich sandwich = new Sandwich(new Bread(breadType), size, toasted);
         addToppings(sandwich);
@@ -109,13 +107,7 @@ public class OrderScreen {
                 3) Large ($3.00)
                 """);
 
-        int drinkSizeChoice;
-        while(true){
-            drinkSizeChoice = ConsoleHelper.promptForInt("Choose size");
-            if (drinkSizeChoice >= 1 && drinkSizeChoice <= 3)
-                break;
-            System.out.println("invalid");
-        }
+       int drinkSizeChoice = OrderScreenHelper.promptForOption("Choose A Drink Size", 1, 3);
 
         String size = switch (drinkSizeChoice) {
             case 1 -> "Small";
@@ -138,13 +130,7 @@ public class OrderScreen {
                 3) Lemonade
                 """);
 
-        int drinkFlavorChoice;
-        while (true){
-            drinkFlavorChoice = ConsoleHelper.promptForInt("Choose flavor");
-            if (drinkFlavorChoice >= 1 && drinkFlavorChoice <= 3)
-                break;
-            System.out.println("Invalid choice");
-        }
+        int drinkFlavorChoice = OrderScreenHelper.promptForOption("Choose Drink Flavor", 1, 3);
 
         String flavor = switch (drinkFlavorChoice) {
             case 1 -> "Coke";
@@ -155,7 +141,7 @@ public class OrderScreen {
 
         Drinks drink = new Drinks(size,flavor, price);
         order.addItem(drink);
-        System.out.println("Your drink has been added!");
+        System.out.println("Your drink has been added!" + size + " " + flavor);
 
     }
 
@@ -167,13 +153,9 @@ public class OrderScreen {
                 2) Lays
                 3) Sunchips
                 """);
-        int chipChoice;
-        while (true){
-            chipChoice = ConsoleHelper.promptForInt("Choose chips");
-            if (chipChoice >= 1 && chipChoice <= 3)
-                break;
-            System.out.println("Invalid choice");
-        }
+
+        int chipChoice = OrderScreenHelper.promptForOption("Choose Chip Type", 1, 3);
+
         String type = switch (chipChoice) {
             case 1 -> "Doritos";
             case 2 -> "Lays";
@@ -198,8 +180,10 @@ public class OrderScreen {
                     0. End Toppings
                     """);
 
-            int choice = ConsoleHelper.promptForInt("Choose An Option: ");
+            int choice = OrderScreenHelper.promptForOption("Choose An Option: ", 1, 0);
 
+
+            //toppings options "menu"
             switch (choice) {
                 case 1 -> addRegularTopping(sandwich);
                 case 2 -> addMeatToppings(sandwich);
@@ -216,7 +200,6 @@ public class OrderScreen {
     }
 
     //add regular topping - free
-
     //todo: make regular toppings LOOP
     private void addRegularTopping(Sandwich s) {
 
@@ -233,37 +216,36 @@ public class OrderScreen {
                     7) Pickles
                     8) Guacamole
                     9) Mushrooms
-                    0)End of Regular Toppings
+                    0) End of Regular Toppings
                     """);
 
-            int choice = ConsoleHelper.promptForInt("Choose a topping: ");
-            //if 0;
+            List<Integer> choices = OrderScreenHelper.promptForChoices("Enter One or More toppings (Seperate By Comma",
+                    9);
 
-            if (choice == 0) {
+            if (choices.isEmpty()) {
                 System.out.println("Regular Topping Added");
                 return;
             }
 
-            String toppingName = switch (choice) {
-                case 1 -> "Lettuce";
-                case 2 -> "Peppers";
-                case 3 -> "Onion";
-                case 4 -> "Tomatoes";
-                case 5 -> "Jalapenos";
-                case 6 -> "Cucumbers";
-                case 7 -> "Pickles";
-                case 8 -> "Guacamole";
-                case 9 -> "Mushroom";
-                default -> null;
-            };
+            for (int choice : choices) {
+                String toppingName = switch (choice) {
+                    case 1 -> "Lettuce";
+                    case 2 -> "Peppers";
+                    case 3 -> "Onion";
+                    case 4 -> "Tomatoes";
+                    case 5 -> "Jalapenos";
+                    case 6 -> "Cucumbers";
+                    case 7 -> "Pickles";
+                    case 8 -> "Guacamole";
+                    case 9 -> "Mushroom";
+                    default -> null;
+                };
 
-            if (toppingName == null) {
-                System.out.println("Invalid choice, try again!");
-                return;
+                if (toppingName != null) {
+                    s.getToppings().add(new Toppings(toppingName, false, false, 0.0));
+                    System.out.println("Added" + toppingName);
+                }
             }
-
-            s.getToppings().add(new Toppings(toppingName, false, false, 0));
-            System.out.println(" Added " + toppingName);
         }
     }
 
@@ -271,28 +253,24 @@ public class OrderScreen {
     //steak, ham, salami, roast beef, chicken, bacon
     private void addMeatToppings(Sandwich s) {
         System.out.println("""
-               --- Meat Options---
-                1. Steak
-                2. Ham
-                3. Salami
-                4. Roast Beef
-                5. Chicken
-                6. Bacon
+                --- Premium Meat Options---
+                 1. Steak
+                 2. Ham
+                 3. Salami
+                 4. Roast Beef
+                 5. Chicken
+                 6. Bacon
+                 0. Done Adding Meat
                 """);
 
-        int choice;
-        while (true){
-            choice = ConsoleHelper.promptForInt("Choose Meat");
-            if (choice >= 0 && choice <= 6)
-                break;
-            System.out.println("Invalid choice");
-        }
+        List<Integer> choices = OrderScreenHelper.promptForChoices("Enter Meat Number (1, 3",6);
 
-        if (choice == 0){
-            System.out.println("No meat added!");
+        if (choices.isEmpty()){
+            System.out.println("Finished add Meat");
             return;
         }
 
+        for (int choice : choices) {
         String meat = switch (choice){
             case 1 -> "Steak";
             case 2 -> "Ham";
@@ -442,4 +420,5 @@ public class OrderScreen {
         System.out.println("Returning to home screen");
         return;
 
+    }
     }
