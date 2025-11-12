@@ -21,7 +21,11 @@ public class Order {
 
     //receipt and ui display items
     public List<ProductMain> getItems(){
-        return new ArrayList<>(items);
+        return items;
+    }
+    //clear order
+    public void clear(){
+        items.clear();
     }
 
     //total cost

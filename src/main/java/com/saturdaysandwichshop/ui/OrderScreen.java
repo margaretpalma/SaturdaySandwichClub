@@ -35,7 +35,7 @@ public class OrderScreen {
                 case 1 -> addSandwich();
                 case 2 -> addDrink();
                 case 3 -> addChips();
-                //case 4 -> checkout();
+                case 4 -> checkout();
                 case 0 -> {
                     System.out.println("Your Order Has Been Cancelled");
                     return;
@@ -248,8 +248,6 @@ public class OrderScreen {
             }
         }
     }
-    private void addSauce(Sandwich s){}
-
     //meats
     //steak, ham, salami, roast beef, chicken, bacon
     private void addMeatToppings(Sandwich s) {
@@ -285,7 +283,10 @@ public class OrderScreen {
             if (meat == null) continue;
 
             boolean extra = OrderScreenHelper.promptForYesOrNo("Extra Meats " + meat + "?");
-
+            if(!extra){
+                System.out.println("Skipped Extra" + meat);
+                continue;
+            }
             double base = switch (s.getSize()) {
                 case 4 -> 1.00;
                 case 8 -> 2.00;
@@ -322,91 +323,92 @@ public class OrderScreen {
 
         List<Integer> choices = OrderScreenHelper.promptForChoices("Add Cheeses", 4);
 
-        if (choices.isEmpty()){
+        if (choices.isEmpty()) {
             System.out.println("finished with cheese");
             return;
         }
-        for (int choice : choices){
-            String cheese = switch (choice){
-            case 1 -> "American";
-            case 2 -> "Provolone";
-            case 3 -> "Cheddar";
-            case 4 -> "Swiss";
-            default -> null;
+        for (int choice : choices) {
+            String cheese = switch (choice) {
+                case 1 -> "American";
+                case 2 -> "Provolone";
+                case 3 -> "Cheddar";
+                case 4 -> "Swiss";
+                default -> null;
             };
 
-        if (cheese == null)
-            continue;
+            if (cheese == null)
+                continue;
 
-        boolean extra = OrderScreenHelper.promptForYesOrNo("extra cheese? " + cheese + "");
+            boolean extra = OrderScreenHelper.promptForYesOrNo("extra cheese? " + cheese + "");
 
-        double base = switch (s.getSize()) {
-            case 4 -> 0.75;
-            case 8 -> 1.50;
-            case 12 -> 2.25;
-            default -> 0.75;
-        };
+            double base = switch (s.getSize()) {
+                case 4 -> 0.75;
+                case 8 -> 1.50;
+                case 12 -> 2.25;
+                default -> 0.75;
+            };
 
-        double extraCost = switch (s.getSize()) {
-            case 4 -> 0.30;
-            case 8 -> 0.60;
-            case 12 -> 0.90;
-            default -> 0.30;
-        };
+            double extraCost = switch (s.getSize()) {
+                case 4 -> 0.30;
+                case 8 -> 0.60;
+                case 12 -> 0.90;
+                default -> 0.30;
+            };
 
-        double finalPrice = extra ? base + extraCost : base;
+            double finalPrice = extra ? base + extraCost : base;
 
-        s.getToppings().add(new Toppings(cheese, true, extra, finalPrice));
-        System.out.println(cheese + "added");
+            s.getToppings().add(new Toppings(cheese, true, extra, finalPrice));
+            System.out.println(cheese + "added");
+        }
     }
-
     //sauce
-    private void addSauce(Sandwich s){
+    private void addSauce(Sandwich s) {
 
-            while (true) {
-                System.out.println("""
-                        Sauces:
-                        1) Mayo
-                        2) Mustard
-                        3) Ketchup
-                        4) Ranch
-                        5) Thousand Island
-                        6) Vinaigrette
-                        7) Au Jus
-                        0) Cancel
-                        """);
+        while (true) {
+            System.out.println("""
+                    Sauces:
+                    1) Mayo
+                    2) Mustard
+                    3) Ketchup
+                    4) Ranch
+                    5) Thousand Island
+                    6) Vinaigrette
+                    7) Au Jus
+                    0) Cancel
+                    """);
 
-                List<Integer> choices = OrderScreenHelper.promptForChoices("Enter Sauce Choice", 7);
+            List<Integer> choices = OrderScreenHelper.promptForChoices("Enter Sauce Choice", 7);
 
-                if (choices.isEmpty()) {
-                    System.out.println("Finished with sauces");
-                    return;
-                }
+            if (choices.isEmpty()) {
+                System.out.println("Finished with sauces");
+                return;
+            }
 
-                for (int choice : choices) {
-                    String sauce = switch (choice) {
-                        case 1 -> "Mayo";
-                        case 2 -> "Mustard";
-                        case 3 -> "Ketchup";
-                        case 4 -> "Ranch";
-                        case 5 -> "Thousand Island";
-                        case 6 -> "Vinaigrette";
-                        default -> null;
-                    };
+            for (int choice : choices) {
+                String sauce = switch (choice) {
+                    case 1 -> "Mayo";
+                    case 2 -> "Mustard";
+                    case 3 -> "Ketchup";
+                    case 4 -> "Ranch";
+                    case 5 -> "Thousand Island";
+                    case 6 -> "Vinaigrette";
+                    default -> null;
+                };
 
-                    if (sauce != null) {
-                        s.getToppings().add(new Toppings(sauce, false, false, 0.0));
-                        System.out.println(sauce + "Added");
-                    }
+                if (sauce != null) {
+                    s.getToppings().add(new Toppings(sauce, false, false, 0.0));
+                    System.out.println(sauce + "Added");
                 }
             }
+        }
+    }
 //checkout
-            private void checkout() {
+        private void checkout() {
                 System.out.println("---Checkout---");
 
                 //print items in order
                 order.getItems().forEach(item -> {
-                    System.out.println("%10s $%.2f%n", item.getProductName(), item.getPrice());
+                    System.out.printf("%10s $%.2f%n", item.getProductName(), item.getPrice());
                 });
 
                 double subTotal = order.getItems().stream()
@@ -419,15 +421,17 @@ public class OrderScreen {
                 double total = subTotal + tax;
 
                 System.out.println("---");
-                System.out.println("Subtotal : $.2f%n", subTotal);
-                System.out.println("Tax (4.75%)", tax);
-                System.out.println("Total: %$.2f%n", total);
+                System.out.printf("Subtotal : $.2f%n", subTotal);
+                System.out.printf("Tax (4.75%)", tax);
+                System.out.printf("Total: %$.2f%n", total);
 
                 boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Order Finished, ready to Pay");
                 if (finishOrder) {
-                    System.out.println("");
+                    System.out.println("Confirmed!");
+                    order.clear();
+                } else {
+                    System.out.println("Order Cancelled. Returning to menu.");
                 }
-                }
+            }
         }
-    }
-}
+

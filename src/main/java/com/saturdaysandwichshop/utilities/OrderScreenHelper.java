@@ -15,20 +15,39 @@ public class OrderScreenHelper {
     //max = stops at max number option
     //=0 ; cancel
     public static List<Integer> promptForChoices(String message, int max) {
-        String input = ConsoleHelper.promptForString(message).trim();
-        if (input.equals("0")) return List.of();
+        while (true) {
+            String input = ConsoleHelper.promptForString(message).trim();
 
-        //streams to clean input
-        //convert string to int
-        //.filter only numbers in range
-        return Arrays.stream(input.split(","))
-                .map(String::trim)
-                .filter(s -> s.matches("\\d+"))
-                .map(Integer::parseInt)
-                .filter(n -> n >= 1 && n <= max)
-                .toList();
+            //cancel
+            if (input.equals("0")) return List.of();
+
+            //streams to clean input
+            //convert string to int
+            //.filter only numbers in range
+
+            String[] parts = input.split(",");
+
+
+            List<Integer> parsed = Arrays.stream(parts)
+                    .map(String::trim)
+                    .filter(s -> s.matches("\\d+"))
+                    .map(Integer::parseInt)
+                    .toList();
+
+            //only num in range
+            List<Integer> isValid = parsed.stream()
+                    .filter(n -> n >= 1 && n <= max)
+                    .toList();
+
+            if(isValid.isEmpty() || isValid.size() != parsed.size()){
+                System.out.println("Invalid input. Choose number between 1 and " + max);
+                continue;
+        }
+
+
+            return isValid;
     }
-
+}
     //number choices, min - max of options
     //
     public static int promptForOption(String message, int min, int max) {
