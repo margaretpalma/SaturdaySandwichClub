@@ -25,12 +25,7 @@ public class OrderScreen {
                     0) Cancel Order
                     """);
 
-            choice = ConsoleHelper.promptForInt("Choose An Option");
-            if (choice >= 0 && choice <= 4)
-                break;
-
-            System.out.println("Ivalid");
-        }
+            int choice = ConsoleHelper.promptForInt("Choose An Option");
 
             switch (choice) {
                 case 1 -> addSandwich();
@@ -44,7 +39,7 @@ public class OrderScreen {
                 default -> System.out.println("Sorry, Invalid Selection");
             }
         }
-
+    }
     //add sandwich
     //white, wheat, rye, wrap
     private void addSandwich() {
@@ -96,9 +91,14 @@ public class OrderScreen {
 
 //toasted(y/n)
 
-        boolean toasted = ConsoleHelper.promptForString("Toasted? (Y/N)")
-                .toLowerCase().startsWith("y");
-
+        int toastedChoice;
+        while(true){
+            toastedChoice = ConsoleHelper.promptForInt("Toasted? 1. Yes 2.No");
+            if(toastedChoice == 1 || toastedChoice == 2)
+                break;
+            System.out.println("Invalid, try again");
+        }
+        boolean toasted = (toastedChoice == 1);
 //sandwich making
         Sandwich sandwich = new Sandwich(new Bread(breadType), size, toasted);
         addToppings(sandwich);
@@ -389,8 +389,8 @@ public class OrderScreen {
         System.out.println(cheese + "added");
     }
 
-
-        private void addSauce(Sandwich s){
+    //sauce
+    private void addSauce(Sandwich s){
             System.out.println("""
                     Sauces:
                     1) Mayo
@@ -410,6 +410,11 @@ public class OrderScreen {
             choice = ConsoleHelper.promptForInt("Choose sauce");
             if (choice >= 0 && choice <= 6)
                 break;
+            System.out.println("invalid choice ");
+            return;
+        }
+
+        if (choice == 0){
             System.out.println("No sauce");
             return;
         }
@@ -421,19 +426,10 @@ public class OrderScreen {
             case 4 -> "Ranch";
             case 5 -> "Thousand Island";
             case 6 -> "Vinaigrette";
-            case 0 -> {
-                System.out.println("No Sauce");
-                yield null;
-            }
-            default -> {
-                System.out.println("Invalid option");
-                yield null;
-            }
-        };
-        if(sauce == null) return;
+            default -> null;
 
-        Toppings topping = new Toppings(sauce, false, false, 0.0);
-         s.getToppings().add(topping);
+        };
+         s.getToppings().add( new Toppings(sauce, false, false, 0.0));
             System.out.println(sauce + "Added");
     }
 
