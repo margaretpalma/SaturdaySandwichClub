@@ -400,22 +400,34 @@ public class OrderScreen {
                     }
                 }
             }
-        }
 //checkout
-//    private void checkout () {
-//
-//        if (order.getItems().isEmpty()) {
-//            System.out.println("Order empty!");
-//            return;
-//        }
-//        System.out.println("\n---Your Order ---");
-//        System.out.println(Receipt.generate(order));
-//
-//        ReceiptFileManager manager = new ReceiptFileManager();
-//        manager.saveReceipt(order);
-//
-//        System.out.println("rceipt saved");
-//        System.out.println("Returning to home screen");
-//        return;
+            private void checkout() {
+                System.out.println("---Checkout---");
 
+                //print items in order
+                order.getItems().forEach(item -> {
+                    System.out.println("%10s $%.2f%n", item.getProductName(), item.getPrice());
+                });
 
+                double subTotal = order.getItems().stream()
+                        .mapToDouble(ProductMain::getPrice)
+                        .sum();
+
+                //tax rate in nc for prepared food = 4.75 :)
+                double taxRate = 0.0475;
+                double tax = subTotal + taxRate;
+                double total = subTotal + tax;
+
+                System.out.println("---");
+                System.out.println("Subtotal : $.2f%n", subTotal);
+                System.out.println("Tax (4.75%)", tax);
+                System.out.println("Total: %$.2f%n", total);
+
+                boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Order Finished, ready to Pay");
+                if (finishOrder) {
+                    System.out.println("");
+                }
+                }
+        }
+    }
+}
