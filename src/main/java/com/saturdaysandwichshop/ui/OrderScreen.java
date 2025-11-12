@@ -35,7 +35,7 @@ public class OrderScreen {
                 case 1 -> addSandwich();
                 case 2 -> addDrink();
                 case 3 -> addChips();
-                case 4 -> checkout();
+                //case 4 -> checkout();
                 case 0 -> {
                     System.out.println("Your Order Has Been Cancelled");
                     return;
@@ -180,7 +180,7 @@ public class OrderScreen {
                     0. End Toppings
                     """);
 
-            int choice = OrderScreenHelper.promptForOption("Choose An Option: ", 1, 0);
+            int choice = OrderScreenHelper.promptForOption("Choose An Option: ", 0, 4);
 
 
             //toppings options "menu"
@@ -248,6 +248,7 @@ public class OrderScreen {
             }
         }
     }
+    private void addSauce(Sandwich s){}
 
     //meats
     //steak, ham, salami, roast beef, chicken, bacon
@@ -300,11 +301,12 @@ public class OrderScreen {
             };
 
             double totalPrice = extra ? base + extraCost : base;
+
             s.getToppings().add(new Toppings(meat, true, extra, totalPrice));
             System.out.println(meat + "added");
-        };
+        }
     }
-}
+
     //cheese toppings .75, 1.50, 2.25
     //american, provolone, cheddar, swiss
     //extra - .30, .60, .90
@@ -318,20 +320,14 @@ public class OrderScreen {
                 0) Cancel
                 """);
 
-        int choice;
-        while (true){
-            choice = ConsoleHelper.promptForInt("Choose cheese");
-            if (choice >= 0 && choice <= 4)
-                break;
-            System.out.println("invalid choice");
-        }
+        List<Integer> choices = OrderScreenHelper.promptForChoices("Add Cheeses", 4);
 
-        if (choice == 0){
-            System.out.println("No cheese");
+        if (choices.isEmpty()){
+            System.out.println("finished with cheese");
             return;
         }
-
-        String cheese = switch (choice){
+        for (int choice : choices){
+            String cheese = switch (choice){
             case 1 -> "American";
             case 2 -> "Provolone";
             case 3 -> "Cheddar";
@@ -339,7 +335,10 @@ public class OrderScreen {
             default -> null;
             };
 
-        boolean extra = ConsoleHelper.promptForString("Extra (Y/N)").toLowerCase().startsWith("y");
+        if (cheese == null)
+            continue;
+
+        boolean extra = OrderScreenHelper.promptForYesOrNo("extra cheese? " + cheese + "");
 
         double base = switch (s.getSize()) {
             case 4 -> 0.75;
@@ -363,64 +362,60 @@ public class OrderScreen {
 
     //sauce
     private void addSauce(Sandwich s){
-            System.out.println("""
-                    Sauces:
-                    1) Mayo
-                    2) Mustard
-                    3) Ketchup
-                    4) Ranch
-                    5) Thousand Island
-                    6) Vinaigrette
-              
-                    0) Cancel
-                    """);
 
-            //todo: au jus? in sauce class ?
+            while (true) {
+                System.out.println("""
+                        Sauces:
+                        1) Mayo
+                        2) Mustard
+                        3) Ketchup
+                        4) Ranch
+                        5) Thousand Island
+                        6) Vinaigrette
+                        7) Au Jus
+                        0) Cancel
+                        """);
 
-        int choice;
-        while (true){
-            choice = ConsoleHelper.promptForInt("Choose sauce");
-            if (choice >= 0 && choice <= 6)
-                break;
-            System.out.println("invalid choice ");
-            return;
+                List<Integer> choices = OrderScreenHelper.promptForChoices("Enter Sauce Choice", 7);
+
+                if (choices.isEmpty()) {
+                    System.out.println("Finished with sauces");
+                    return;
+                }
+
+                for (int choice : choices) {
+                    String sauce = switch (choice) {
+                        case 1 -> "Mayo";
+                        case 2 -> "Mustard";
+                        case 3 -> "Ketchup";
+                        case 4 -> "Ranch";
+                        case 5 -> "Thousand Island";
+                        case 6 -> "Vinaigrette";
+                        default -> null;
+                    };
+
+                    if (sauce != null) {
+                        s.getToppings().add(new Toppings(sauce, false, false, 0.0));
+                        System.out.println(sauce + "Added");
+                    }
+                }
+            }
         }
-
-        if (choice == 0){
-            System.out.println("No sauce");
-            return;
-        }
-
-        String sauce = switch (choice){
-            case 1 -> "Mayo";
-            case 2 -> "Mustard";
-            case 3 -> "Ketchup";
-            case 4 -> "Ranch";
-            case 5 -> "Thousand Island";
-            case 6 -> "Vinaigrette";
-            default -> null;
-
-        };
-         s.getToppings().add( new Toppings(sauce, false, false, 0.0));
-            System.out.println(sauce + "Added");
-    }
-
 //checkout
-    private void checkout () {
+//    private void checkout () {
+//
+//        if (order.getItems().isEmpty()) {
+//            System.out.println("Order empty!");
+//            return;
+//        }
+//        System.out.println("\n---Your Order ---");
+//        System.out.println(Receipt.generate(order));
+//
+//        ReceiptFileManager manager = new ReceiptFileManager();
+//        manager.saveReceipt(order);
+//
+//        System.out.println("rceipt saved");
+//        System.out.println("Returning to home screen");
+//        return;
 
-        if (order.getItems().isEmpty()) {
-            System.out.println("Order empty!");
-            return;
-        }
-        System.out.println("\n---Your Order ---");
-        System.out.println(Receipt.generate(order));
 
-        ReceiptFileManager manager = new ReceiptFileManager();
-        manager.saveReceipt(order);
-
-        System.out.println("rceipt saved");
-        System.out.println("Returning to home screen");
-        return;
-
-    }
-    }
