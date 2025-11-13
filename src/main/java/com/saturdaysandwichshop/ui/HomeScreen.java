@@ -9,12 +9,16 @@ public class HomeScreen {
     public void menuDisplay() {
 
         while (true) {
-            System.out.println("Welcome to Saturday Sandwich Shop");
 
-            System.out.println("1) New Order ");
-
-            System.out.println("0) Exit");
-
+            System.out.println("""
+                ========================================================
+                        SATURDAY SANDWICH SHOP — Main Entrance
+                --------------------------------------------------------
+                  1) Start a New Order
+                --------------------------------------------------------
+                  0) Exit the Shop
+                ========================================================
+                """);
             int choice = ConsoleHelper.promptForInt("Enter Option Here (1/0)");
 
             switch (choice) {
@@ -26,7 +30,7 @@ public class HomeScreen {
                     System.out.println("See You Next Saturday!");
                     return;
                 }
-                default -> System.out.println("Invalid choice, try again.");
+                default -> System.out.println("Invalid choice - try again.");
             }
         }
     }

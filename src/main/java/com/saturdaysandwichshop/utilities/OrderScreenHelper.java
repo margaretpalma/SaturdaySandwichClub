@@ -58,7 +58,7 @@ public class OrderScreenHelper {
             if (choice >= min && choice <= max) {
                 return choice;
             }
-            System.out.println("Hold up! That wasn't in the script. Choose a number between " + min + "and" + max);
+            System.out.println("Hold up! That wasn't in the script. Choose a number between " + min + " and " + max);
         }
     }
         //boolean for y/n

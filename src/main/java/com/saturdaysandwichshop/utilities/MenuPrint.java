@@ -15,6 +15,10 @@ public class MenuPrint {
         System.out.println(MenuText.S_O);
         }
 
+        public static void printChipMenu(){
+        System.out.println(MenuText.CHIP_M);
+        }
+
         public static void printToppingMenu(){
         System.out.println(MenuText.T_M);
         }

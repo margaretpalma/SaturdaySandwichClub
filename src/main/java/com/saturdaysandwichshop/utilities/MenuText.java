@@ -113,4 +113,13 @@ public class MenuText {
             Your Items: 
             ==========================
             """;
+
+    public static final String CHIP_M = """
+            ===== CHIP MENU  =====
+            1) Doritos 
+            2) Lays
+            3) Sunchips
+            ======================
+            """;
 }
+

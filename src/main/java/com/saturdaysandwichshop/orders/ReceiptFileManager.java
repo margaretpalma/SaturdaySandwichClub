@@ -10,6 +10,7 @@ public class ReceiptFileManager {
 
 
     //receipts are stored here //NEW RECEIPT FOR EACH ORDER
+    //java constants are in caps
  private static final String Receipt_Folder = "receipts";
 
      //check for folder
@@ -31,7 +32,7 @@ public class ReceiptFileManager {
    //timestamp for receipts - Local Date
 
     public void saveReceipt(Order order){
-            String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyMMdd-HHmmss"));
+            String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
 
 
         //file IN receipt

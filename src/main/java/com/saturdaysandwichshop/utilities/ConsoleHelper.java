@@ -8,7 +8,7 @@ public class ConsoleHelper {
 
     //prompt for user string, int, float
     public static String promptForString(String prompt) {
-        System.out.println(prompt + ": ");
+        System.out.println(prompt + ":");
         return scanner.nextLine();
     }
 
@@ -18,7 +18,7 @@ public class ConsoleHelper {
         int result = 0;
         do {
             try {
-                System.out.println(prompt + ": ");
+                System.out.println(prompt + ":");
                 result = scanner.nextInt();
                 scanner.nextLine();
                 isValid = true;
