@@ -42,10 +42,10 @@ public class Drinks extends ProductMain {
 //formatting
     @Override
     public String toString(){
-        return String.format("%s %s - $%.2f",
-                drinkSize,
-                drinkFlavor,
-                basePrice);
-
+        return String.format("""
+                Drink:
+                Size: %s
+                Flavor: %s
+                """, drinkSize, drinkFlavor);
     }
 }

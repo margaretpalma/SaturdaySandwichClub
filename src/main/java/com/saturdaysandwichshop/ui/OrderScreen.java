@@ -6,8 +6,6 @@ import com.saturdaysandwichshop.orders.ReceiptFileManager;
 import com.saturdaysandwichshop.utilities.ConsoleHelper;
 import com.saturdaysandwichshop.utilities.MenuPrint;
 import com.saturdaysandwichshop.utilities.OrderScreenHelper;
-
-import java.awt.*;
 import java.util.List;
 
 
@@ -328,12 +326,13 @@ public class OrderScreen {
         MenuPrint.printCheckoutMenu();
         //print items in order
         order.getItems().forEach(item -> {
-            System.out.printf("%10s $%.2f%n", item.getProductName(), item.getPrice());
+            System.out.println(item);
+            System.out.printf("Price: $%.2f%n%n", item.getProductName(), item.getPrice());
         });
         double subTotal = order.getItems().stream()
                 .mapToDouble(ProductMain::getPrice)
                 .sum();
-                //tax rate in nc for prepared food = 4.75 :)
+                //tax rate in nc for prepared food = 4.75% :)
                 double taxRate = 0.0475;
                 double tax = subTotal * taxRate;
                 double total = subTotal + tax;
@@ -347,8 +346,7 @@ public class OrderScreen {
                 //todo: save to txt file (receipt)
                 boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Thanks for ordering from Saturday Sandwich ");
                 if (finishOrder) {
-
-
+                //ask if they wnt a receipt here !!
                 //save receipt
                     ReceiptFileManager fileManager = new ReceiptFileManager();
                     fileManager.saveReceipt(order);

@@ -78,11 +78,10 @@ public class Sandwich extends ProductMain {
     public String toString() {
 
         String toppingList =
-                toppings.isEmpty()
-                ? "No Toppings Added"
-                : toppings.stream()
-                .map(Toppings::getToppingName)
-                .collect(Collectors.joining(","));
+                 toppings.stream()
+                .map(t -> t.getToppingName() + (t.isExtraPortion() ? "(Extra Portion)" : ""))
+                .collect(Collectors.joining(", "));
+
         return String.format("%d\" %s %s | Toppings: [%s] | Total: $%.2f",
                 size,
                 bread.getBreadType(),

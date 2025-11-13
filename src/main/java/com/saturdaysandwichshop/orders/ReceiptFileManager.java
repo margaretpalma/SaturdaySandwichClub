@@ -1,8 +1,6 @@
 package com.saturdaysandwichshop.orders;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,7 +8,7 @@ public class ReceiptFileManager {
 
 
     //receipts are stored here //NEW RECEIPT FOR EACH ORDER
- private static final String Receipt_Folder = "receipts.txt";
+ private static final String Receipt_Folder = "Receipts";
 
      //check for folder
         public ReceiptFileManager(){
