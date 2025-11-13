@@ -31,15 +31,24 @@ public class Order {
     //total cost
     //streams
     public double getTotal(){
-        return items.stream().mapToDouble(ProductMain::getPrice).sum();
+        return items.stream()
+                .mapToDouble(ProductMain::getPrice)
+                .sum();
     }
 
     //formatting
     @Override
     public String toString() {
-        String itemList = items.isEmpty() ? "No items!" : items.stream().map(items -> String.format(items.getProductName(),
-                items.getPrice())).collect(Collectors.joining("\n"));
+        String itemList = items.isEmpty() ? "No items!"
+                : items.stream()
+                .map(items ->
+                        String.format("%-18 $%.2f",
+                                items.getProductName(),
+                                items.getPrice()))
+                        .collect(Collectors.joining("\n"));
 
-        return  itemList + "---\n$Your Total Is" + getTotal();
+        return String.format("%s\n----------------\nTotal: $%.2f",
+                itemList,
+                getTotal());
     }
 }
