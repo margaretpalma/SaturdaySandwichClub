@@ -248,6 +248,7 @@ public class OrderScreen {
             }
         }
     }
+
     //meats
     //steak, ham, salami, roast beef, chicken, bacon
     private void addMeatToppings(Sandwich s) {
@@ -282,6 +283,10 @@ public class OrderScreen {
 
             if (meat == null) continue;
 
+            boolean extra = OrderScreenHelper.promptForYesOrNo("Extra Meats " + meat + "?");
+            if (!extra) {
+                System.out.println("Skipped Extra" + meat);
+                continue;
             }
             double base = switch (s.getSize()) {
                 case 4 -> 1.00;
@@ -303,10 +308,10 @@ public class OrderScreen {
             System.out.println(meat + "added");
         }
     }
-
     //cheese toppings .75, 1.50, 2.25
     //american, provolone, cheddar, swiss
     //extra - .30, .60, .90
+
     private void addCheeseToppings(Sandwich s) {
         System.out.println("""
                 Cheese:
@@ -335,30 +340,32 @@ public class OrderScreen {
             if (cheese == null)
                 continue;
 
-            boolean extra = OrderScreenHelper.promptForYesOrNo("extra cheese? " + cheese + "");
-            if(!extra){
+            //extra portion
+            boolean extra = OrderScreenHelper.promptForYesOrNo("Extra Portion" + cheese + "?");
+            if (!extra) {
                 System.out.println("Skipped Extra" + cheese);
                 continue;
+            }
 
-            double base = switch (s.getSize()) {
-                case 4 -> 0.75;
-                case 8 -> 1.50;
-                case 12 -> 2.25;
-                default -> 0.75;
-            };
+                double base = switch (s.getSize()) {
+                    case 4 -> 0.75;
+                    case 8 -> 1.50;
+                    case 12 -> 2.25;
+                    default -> 0.75;
+                };
 
-            double extraCost = switch (s.getSize()) {
-                case 4 -> 0.30;
-                case 8 -> 0.60;
-                case 12 -> 0.90;
-                default -> 0.30;
-            };
+                double extraCost = switch (s.getSize()) {
+                    case 4 -> 0.30;
+                    case 8 -> 0.60;
+                    case 12 -> 0.90;
+                    default -> 0.30;
+                };
 
-            double finalPrice = extra ? base + extraCost : base;
+                double finalPrice = extra ? base + extraCost : base;
 
-            s.getToppings().add(new Toppings(cheese, true, extra, finalPrice));
-            System.out.println(cheese + "added");
-        }
+                s.getToppings().add(new Toppings(cheese, true, extra, finalPrice));
+                System.out.println(cheese + "added");
+            }
     }
     //sauce
     private void addSauce(Sandwich s) {
@@ -391,6 +398,7 @@ public class OrderScreen {
                     case 4 -> "Ranch";
                     case 5 -> "Thousand Island";
                     case 6 -> "Vinaigrette";
+                    case 7 -> "Au Jus";
                     default -> null;
                 };
 
@@ -416,12 +424,12 @@ public class OrderScreen {
 
                 //tax rate in nc for prepared food = 4.75 :)
                 double taxRate = 0.0475;
-                double tax = subTotal + taxRate;
+                double tax = subTotal * taxRate;
                 double total = subTotal + tax;
 
                 System.out.println("---");
                 System.out.printf("Subtotal : $.2f%n", subTotal);
-                System.out.printf("Tax (4.75%)", tax);
+                System.out.printf("Tax (4.75%) : $.2f%n", tax);
                 System.out.printf("Total: %$.2f%n", total);
 
                 boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Order Finished, ready to Pay");
