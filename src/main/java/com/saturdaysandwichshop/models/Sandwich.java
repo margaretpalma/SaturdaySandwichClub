@@ -1,12 +1,11 @@
 package com.saturdaysandwichshop.models;
-import com.saturdaysandwichshop.interfaces.Customizable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 //sandwich has-a topping/bread/size/toast (y/n)
 
-public class Sandwich extends ProductMain implements Customizable {
+public class Sandwich extends ProductMain {
     //main item
     //sandwich options go here
     //4 8 12
@@ -40,13 +39,6 @@ public class Sandwich extends ProductMain implements Customizable {
         return toppings;
     }
 
-
-    //add new topping - customizable interface
-
-    @Override
-    public void addCustom(String option) {
-        toppings.add(new Toppings(option, false, false, 0.0));
-    }
 
     //pricing
 

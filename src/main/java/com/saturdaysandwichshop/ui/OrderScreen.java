@@ -348,7 +348,8 @@ public class OrderScreen {
                     System.out.println("Confirmed!");
 
                 //call receipt file
-
+                    ReceiptFileManager receiptFileManager = new ReceiptFileManager();
+                    receiptFileManager.saveReceipt(order);
 
                     order.clear();
                 } else {
