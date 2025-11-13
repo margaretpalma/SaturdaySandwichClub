@@ -4,6 +4,7 @@ import com.saturdaysandwichshop.orders.Order;
 import com.saturdaysandwichshop.orders.Receipt;
 import com.saturdaysandwichshop.orders.ReceiptFileManager;
 import com.saturdaysandwichshop.utilities.ConsoleHelper;
+import com.saturdaysandwichshop.utilities.MenuPrint;
 import com.saturdaysandwichshop.utilities.OrderScreenHelper;
 
 import java.util.List;
@@ -19,17 +20,8 @@ public class OrderScreen {
     public void displayOrderMenu() {
 
         while (true) {
-            System.out.println("""
-                    --Order Menu--
-                    1) Add Sandwich
-                    2) Add Drink
-                    3) Add Chips
-                    4) Checkout
-                    0) Cancel Order
-                    """);
-
+            MenuPrint.printMainMenu();
             int choice = OrderScreenHelper.promptForOption("Choose An Option", 0, 4);
-
             switch (choice) {
                 case 1 -> addSandwich();
                 case 2 -> addDrink();
@@ -48,16 +40,8 @@ public class OrderScreen {
 
     private void addSandwich() {
 
-        System.out.println("""
-                ---Bread Options ---
-                1) White
-                2) Wheat
-                3) Rye
-                4) Wrap
-                """);
-        //missing loop to stop from repeating
+        MenuPrint.printBreadMenu();
         int breadOption = OrderScreenHelper.promptForOption("Choose bread option", 1, 4);
-
         String breadType = switch (breadOption) {
             case 1 -> "White";
             case 2 -> "Wheat";
@@ -67,15 +51,8 @@ public class OrderScreen {
         };
 
 //size
-        System.out.println("""
-                ---Size Option---
-                1. 4
-                2. 8
-                3. 12
-                """);
-
+        MenuPrint.printSizeMenu();
         int sizeChoice = OrderScreenHelper.promptForOption("Choose Size Option", 1, 3);
-
         int size = switch (sizeChoice) {
             case 1 -> 4;
             case 2 -> 8;
@@ -98,14 +75,7 @@ public class OrderScreen {
     //add drink
     //size and flavor
     public void addDrink() {
-
-        System.out.println("""
-                ---Drink Sizes---
-                1) Small ($2.00)
-                2) Medium ($2.50)
-                3) Large ($3.00)
-                """);
-
+        MenuPrint.printDrinkSizeMenu();
         int drinkSizeChoice = OrderScreenHelper.promptForOption("Choose A Drink Size", 1, 3);
 
         String size = switch (drinkSizeChoice) {
