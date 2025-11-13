@@ -31,8 +31,17 @@ public class MenuText {
             ======================
             """;
 
+    public static final String T_M = """
+            ===== TOPPINGS MENU =====
+            1) Add Regular Toppings
+            2) Add Meat (Premium)
+            3) Add Cheese (Premium)
+            4) Add Sauce
+            0) Finish Toppings
+            """;
+
     public static final String R_T_M = """
-            ===== SIZE OPTIONS =====
+            ===== REGULAR TOPPING MENU =====
             1) Lettuce
             2) Peppers
             3) Onions
