@@ -27,6 +27,6 @@ public class Chips extends ProductMain {
 //formatting
     @Override
     public String toString(){
-        return String.format("%s Chips - $%.2f", chipType);
+        return "Chips: " + chipType;
     }
 }

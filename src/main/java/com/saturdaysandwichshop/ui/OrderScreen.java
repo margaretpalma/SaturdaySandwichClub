@@ -327,7 +327,7 @@ public class OrderScreen {
         //print items in order
         order.getItems().forEach(item -> {
             System.out.println(item);
-            System.out.printf("Price: $%.2f%n%n", item.getProductName(), item.getPrice());
+            System.out.printf("Price: $%.2f%n%n", item.getPrice());
         });
         double subTotal = order.getItems().stream()
                 .mapToDouble(ProductMain::getPrice)
