@@ -40,7 +40,8 @@ public class OrderScreenHelper {
                     .toList();
 
             if(isValid.isEmpty() || isValid.size() != parsed.size()){
-                System.out.println("Invalid input. Choose number between 1 and " + max);
+                System.out.println("That option wasn’t sugar, spice, OR anything nice. Try a number between 1 and " + max + "!");
+                System.out.println("Example Input (1 , 3, 5");
                 continue;
         }
 
@@ -57,7 +58,7 @@ public class OrderScreenHelper {
             if (choice >= min && choice <= max) {
                 return choice;
             }
-            System.out.println("Invalid choice," + min + "and" + max);
+            System.out.println("Hold up! That wasn't in the script. Choose a number between " + min + "and" + max);
         }
     }
         //boolean for y/n
@@ -65,13 +66,13 @@ public class OrderScreenHelper {
         public static boolean promptForYesOrNo(String message) {
             while (true) {
 
-                int choice = ConsoleHelper.promptForInt(message + "(1. Yes, 2. No)");
+                int choice = ConsoleHelper.promptForInt(message + "(1 = Yes, 2 = No)");
                 if (choice == 1)
                     return true;
                 if (choice == 2)
                     return false;
 
-                System.out.println("Invalid Choice 1 for yes 2 for no ");
+                System.out.println("Woah there! That option doesn't exist! Try again.");
             }
         }
     }

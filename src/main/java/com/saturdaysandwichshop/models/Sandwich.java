@@ -23,30 +23,17 @@ public class Sandwich extends ProductMain implements Customizable {
         this.toasted = toasted;
 
     }
-
     //get/set
     public Bread getBread() {
         return bread;
-    }
-
-    public void setBread(Bread bread) {
-        this.bread = bread;
     }
 
     public int getSize() {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public boolean isToasted() {
         return toasted;
-    }
-
-    public void setToasted(boolean toasted) {
-        this.toasted = toasted;
     }
 
     public List<Toppings> getToppings() {
@@ -54,12 +41,15 @@ public class Sandwich extends ProductMain implements Customizable {
     }
 
 
-    //add new topping
+    //add new topping - customizable interface
+
     @Override
     public void addCustom(String option) {
         toppings.add(new Toppings(option, false, false, 0.0));
     }
-    //gets the price
+
+    //pricing
+
     @Override
     public double getPrice() {
         double sizePrice =
@@ -71,6 +61,8 @@ public class Sandwich extends ProductMain implements Customizable {
                 };
 
 //getting the price using streams
+
+
         double toppingTotal = toppings.stream()
                 .mapToDouble(Toppings::getPrice)
                 .sum();
@@ -78,6 +70,7 @@ public class Sandwich extends ProductMain implements Customizable {
         return sizePrice + toppingTotal;
     }
 
+//helper methods
     public String getToppingsList() {
         if (toppings.isEmpty()) return "No toppings";
         return toppings.stream()
@@ -88,11 +81,14 @@ public class Sandwich extends ProductMain implements Customizable {
     }
 
 
-
-    //format display for receipt
+//format display for receipt
     @Override
     public String toString() {
-        String toppingList = toppings.isEmpty() ? "No Toppings Added" : toppings.stream()
+
+        String toppingList =
+                toppings.isEmpty()
+                ? "No Toppings Added"
+                : toppings.stream()
                 .map(Toppings::getToppingName)
                 .collect(Collectors.joining(","));
         return String.format("%d\" %s %s | Toppings: [%s] | Total: $%.2f",
@@ -100,6 +96,7 @@ public class Sandwich extends ProductMain implements Customizable {
                 bread.getBreadType(),
                 toasted ? "(Toasted)" : "",
                 toppingList,
-                getPrice());
+                getPrice()
+        );
     }
 }

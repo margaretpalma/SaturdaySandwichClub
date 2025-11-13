@@ -50,8 +50,13 @@ public class Toppings extends ProductMain {
         //ternary opterator - if//else
         //if isPremiumTopping is true return premium, if its not return regular
 
-        return toppingName + (extraPortion ? "(Extra Topping)" : "") +
-                "- $" + basePrice + (premiumTopping ? "(Premium Topping)" : "");
-    }
+        String extra = extraPortion ? " (Extra)" : "";
+        String premium = premiumTopping ? " (Premium)" : "";
 
+        return String.format("%s%s%s - $%.2f",
+                toppingName,
+                extra,
+                premium,
+                basePrice);
+    }
 }

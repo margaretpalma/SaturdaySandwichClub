@@ -30,19 +30,4 @@ public class ConsoleHelper {
         return result;
     }
 
-    public static float promptForFloat(String prompt) {
-        System.out.println(prompt + ": ");
-        float result = scanner.nextFloat();
-        scanner.nextLine();
-        return result;
-    }
-
-    public static double promptForDouble(String prompt) {
-        System.out.println(prompt + ": ");
-        double result = scanner.nextDouble();
-        scanner.nextLine();
-        return result;
-
-    }
-
 }

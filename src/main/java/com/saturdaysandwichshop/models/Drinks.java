@@ -8,6 +8,7 @@ public class Drinks extends ProductMain {
 //cherry, orange, grape
     private String drinkSize;
     private String drinkFlavor;
+
 //constructor
     public Drinks(String drinkSize, String drinkFlavor, double drinkPrice) {
         super("Drink", drinkPrice);
@@ -41,6 +42,10 @@ public class Drinks extends ProductMain {
 //formatting
     @Override
     public String toString(){
-        return drinkSize + " " + drinkFlavor + " - $" + basePrice;
+        return String.format("%s %s - $%.2f",
+                drinkSize,
+                drinkFlavor,
+                basePrice);
+
     }
 }
