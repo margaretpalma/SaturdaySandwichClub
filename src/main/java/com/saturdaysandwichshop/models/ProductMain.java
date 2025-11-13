@@ -40,6 +40,8 @@ public abstract class ProductMain implements Pricing {
 //formatting
     @Override
     public String toString() {
-        return productName + " - $" + basePrice;
+        return String.format("%s - $%.2f",
+                productName,
+                basePrice);
     }
 }
