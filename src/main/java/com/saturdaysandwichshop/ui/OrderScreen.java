@@ -343,14 +343,17 @@ public class OrderScreen {
                 System.out.printf("Tax (4.75%%) : $%.2f%n", tax);
                 System.out.printf("Total : $%.2f%n", total);
 
+                //order screen checkout option,
+                //todo: save to txt file (receipt)
                 boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Thanks for ordering from Saturday Sandwich ");
                 if (finishOrder) {
-                    System.out.println("Confirmed!");
 
-                //call receipt file
-                    ReceiptFileManager receiptFileManager = new ReceiptFileManager();
-                    receiptFileManager.saveReceipt(order);
 
+                //save receipt
+                    ReceiptFileManager fileManager = new ReceiptFileManager();
+                    fileManager.saveReceipt(order);
+
+                //clear for next order
                     order.clear();
                 } else {
                     System.out.println("Order Cancelled. Returning to menu.");
