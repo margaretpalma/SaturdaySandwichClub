@@ -233,7 +233,20 @@ public class OrderScreen {
     private void addRegularTopping(Sandwich s) {
 
         while (true) {
-            System.out.println();
+            System.out.println("""
+            ======== REGULAR TOPPINGS =========
+            1) Lettuce
+            2) Peppers
+            3) Onion
+            4) Tomatoes
+            5) Jalapenos
+            6) Cucumbers
+            7) Pickles
+            8) Guacamole
+            9) Mushroom
+            0) Done
+            ======================
+            """);
             List<Integer> choices = OrderScreenHelper.promptForChoices("Enter One or More toppings (Separate By Comma), Press 0 to Exit!",9);
             if (choices.contains(0)) {
                 System.out.println("Regular Toppings Added!");

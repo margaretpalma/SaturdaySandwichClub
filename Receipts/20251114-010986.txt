@@ -1,0 +1,14 @@
+========================
+ Saturday Sandwich Shop
+========================
+
+Dexter's Lab Secret Sub $10.50
+
+Toppings: Bacon *Premium*, Cheddar *Premium*, Lettuce, Tomatoes, Ranch
+
+Drink $2.00
+Chips $1.50
+Subtotal: $3.50
+Tax (4.75): $3.50
+Total: $3.50
+-------------------------------------------
