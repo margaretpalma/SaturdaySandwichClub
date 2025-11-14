@@ -1,5 +1,8 @@
 package com.saturdaysandwichshop.ui;
 import com.saturdaysandwichshop.models.*;
+import com.saturdaysandwichshop.models.SignatureSubs.CowardlyCrunchMelt;
+import com.saturdaysandwichshop.models.SignatureSubs.DextersLab;
+import com.saturdaysandwichshop.models.SignatureSubs.TommyPicklesDeluxe;
 import com.saturdaysandwichshop.orders.Order;
 import com.saturdaysandwichshop.orders.ReceiptFileManager;
 import com.saturdaysandwichshop.utilities.MenuPrint;
@@ -38,6 +41,34 @@ public class OrderScreen {
     //white, wheat, rye, wrap
 
     private void addSandwich() {
+        System.out.println("""
+                Speciality Sub
+                1) Dexter's Lab Secret Sub
+                2) Tommy Pickles Deluxe
+                3) Cowardly Crunch Melt
+                """);
+
+        int specialtyChoice = OrderScreenHelper.promptForOption("Choose Specialty Sandwich", 0,3);
+        switch (specialtyChoice){
+            case 1 -> {
+                order.addItem(new DextersLab());
+                System.out.println("Dexter Lab Secret Sub Added!");
+                return;
+            }
+            case 2 -> {
+                order.addItem(new TommyPicklesDeluxe());
+                System.out.println("Tommy Pickles Deluxe Added!");
+                return;
+            }
+            case 3 -> {
+                order.addItem(new CowardlyCrunchMelt());
+                System.out.println("Cowardly Crunch Melt");
+                return;
+            }
+            case 0 -> System.out.println("Okay! Build your own!");
+        }
+
+
 
         MenuPrint.printBreadMenu();
         int breadOption = OrderScreenHelper.promptForOption("-----Choose Bread Option-----", 1, 4);
