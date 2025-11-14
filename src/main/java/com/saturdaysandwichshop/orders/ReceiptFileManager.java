@@ -1,5 +1,8 @@
 package com.saturdaysandwichshop.orders;
 
+import com.saturdaysandwichshop.models.ProductMain;
+import com.saturdaysandwichshop.models.Sandwich;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,46 +11,87 @@ public class ReceiptFileManager {
 
 
     //receipts are stored here //NEW RECEIPT FOR EACH ORDER
- private static final String Receipt_Folder = "Receipts";
+    private static final String Receipt_Folder = "Receipts";
 
-     //check for folder
-        public ReceiptFileManager(){
-            File folder = new File(Receipt_Folder);
+    //from orderscreen to save receipt
 
-    //create a new folder for each receipt
-//todo folder for receipts
-            if(!folder.exists()){
-                //directory
-                //check if folder exists if not, create it
-                boolean createdFolder = folder.mkdir();
+    public void saveReceipt(Order order){
+    File folder = new File(Receipt_Folder);
 
-                if(!createdFolder){
-                    System.out.println("Error finding receipts folder!");
-                }
-            }
+    //if the folder doesnt exsist, create it
+        if(!folder.exists()){
+            folder.mkdir();
         }
 
-    //save receipt to file
-   //timestamp for receipts - Local Date
+        //timestamp generation
 
+        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmSS"));
 
-//        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
-//
-//
-//        //file IN receipt
-//
-//    File file = new File(Receipt_Folder, timeStamp + ".txt");
-//    try (FileWriter writer = new FileWriter(file)){
-//        writer.write(Receipt.generate(order));
-//
-//        //print
-//        System.out.println("Receipt Saved!" + file.getAbsolutePath());
-//    }
-//    catch (IOException e){
-//        System.out.println("Error Saving Receipt: " + e.getMessage());
-//    }
-//  }
-//}
+        //path
+
+        File file = new File(folder, timeStamp + ".txt");
+
+        //write to file
+
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(generateReceipt(order));
+
+            System.out.println("Receipt Saved!");
+        }
+        catch (IOException e){
+            System.out.println("Error saving receipt!" + e.getMessage());
+        }
+    }
+
+    private String generateReceipt(Order order){
+
+        StringBuilder sb = new StringBuilder();
+
+        //header for receipt
+        sb.append("========================\n");
+        sb.append(" Saturday Sandwich Shop\n");
+        sb.append("========================\n\n");
+
+        //item details for receipt
+
+        for (ProductMain item : order.getItems()){
+            //if sandwich = sandwich print sandwich format
+
+            if (item instanceof Sandwich s){
+
+                //name
+                sb.append(s.getProductName()).append(" $")
+                        .append(String.format("%.2f", s.getPrice()))
+                        .append("\n\n");
+
+                //toppings
+
+                sb.append("Toppings: ")
+                        .append(s.getToppingsList()).append("\n\n");
+            }
+            else {
+                sb.append(item.getProductName()).append(" $")
+                        .append(String.format("%.2f", item.getPrice()))
+                        .append("\n");
+            }
+        }
+        //totals
+
+        double subTotal = order.getItems().stream().mapToDouble(ProductMain::getBasePrice).sum();
+
+        //nc tax rate is 4.75%
+        double taxRate = 0.0475;
+        double tax = subTotal * taxRate;
+        double total = subTotal + tax;
+        sb.append("----------------------------------------------\n");
+        sb.append("Subtotal: $").append(String.format("%.2f", subTotal)).append("\n");
+        sb.append("Tax (4.75): $").append(String.format("%.2f", subTotal)).append("\n");
+        sb.append("Total: $").append(String.format("%.2f", subTotal)).append("\n");
+        sb.append("-------------------------------------------\n");
+        return sb.toString();
+
+    }
+}
 
 
 

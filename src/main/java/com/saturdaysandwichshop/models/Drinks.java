@@ -39,6 +39,11 @@ public class Drinks extends ProductMain {
         return basePrice;
     }
 
+    @Override
+    public String getProductName(){
+        return drinkSize + " " + drinkFlavor;
+    }
+
 //formatting
     @Override
     public String toString(){
