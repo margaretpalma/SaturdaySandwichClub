@@ -1,9 +1,7 @@
 package com.saturdaysandwichshop.ui;
 import com.saturdaysandwichshop.models.*;
 import com.saturdaysandwichshop.orders.Order;
-import com.saturdaysandwichshop.orders.Receipt;
 import com.saturdaysandwichshop.orders.ReceiptFileManager;
-import com.saturdaysandwichshop.utilities.ConsoleHelper;
 import com.saturdaysandwichshop.utilities.MenuPrint;
 import com.saturdaysandwichshop.utilities.OrderScreenHelper;
 import java.util.List;
@@ -25,7 +23,9 @@ public class OrderScreen {
                 case 1 -> addSandwich();
                 case 2 -> addDrink();
                 case 3 -> addChips();
-                case 4 -> checkout();
+                case 4 -> {
+                    if (checkout()) return;
+                }
                 case 0 -> {
                     System.out.println("Your Order Has Been Cancelled");
                     return;
@@ -324,7 +324,7 @@ public class OrderScreen {
 
 
     //checkout
-    private void checkout() {
+    private boolean checkout() {
 
         MenuPrint.printCheckoutMenu();
         //print items in order
@@ -335,12 +335,11 @@ public class OrderScreen {
                System.out.println("Size: " + s.getSize() + "\"");
                System.out.println("Toasted: " + (s.isToasted() ? "Yes" : "No"));
                System.out.println("Toppings: " + s.getToppingsList());
-               System.out.printf("Price: $%.2f%n%n", s.getPrice());
+               System.out.printf("Price: $%.2f%n", s.getPrice());
            }
            else {
                System.out.println(item);
-               System.out.printf("Price: $%.2f%n%n", item.getPrice());
-               System.out.println();
+               System.out.printf("Price: $%.2f%n", item.getPrice());
            }
         });
         double subTotal = order.getItems().stream()
@@ -358,23 +357,25 @@ public class OrderScreen {
 
                 //order screen checkout option,
                 //todo: save to txt file (receipt)
-                boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Submit order for pickup? ");
+    boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Submit order for pickup? ");
+         if (finishOrder) {
+                    //ask if they wnt a receipt here !!
+                    //save receipt
 
-                if (finishOrder) {
-                //ask if they wnt a receipt here !!
-                //save receipt
+          boolean wantReceipt = OrderScreenHelper.promptForYesOrNo("Would you like a receipt?");
 
-                    boolean wantReceipt = OrderScreenHelper.promptForYesOrNo("Would you like a receipt?");
-
-                    if( wantReceipt) {
-                        ReceiptFileManager fileManager = new ReceiptFileManager();
-                        fileManager.saveReceipt(order);
-
-                    }
-                //clear for next order
+          if (wantReceipt) {
+                ReceiptFileManager fileManager = new ReceiptFileManager();
+                fileManager.saveReceipt(order);
+                 }
+                    //clear for next order
                     order.clear();
-                } else {
-                    System.out.println("Order Cancelled. Returning to menu.");
+
+                    //return to main entrance
+                    return true;
                 }
+                    //keeps at order menu
+                    return false;
+
             }
         }

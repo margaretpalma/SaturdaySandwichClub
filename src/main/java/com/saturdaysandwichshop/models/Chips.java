@@ -27,6 +27,6 @@ public class Chips extends ProductMain {
 //formatting
     @Override
     public String toString(){
-        return "Chips: " + chipType;
+        return "=====Chip Option===\n" + "Chip Type: " + chipType;
     }
 }

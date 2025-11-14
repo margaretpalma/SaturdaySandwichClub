@@ -42,10 +42,7 @@ public class Drinks extends ProductMain {
 //formatting
     @Override
     public String toString(){
-        return String.format("""
-                ====Drink Option====
-                Size: %s
-                Flavor: %s
-                """, drinkSize, drinkFlavor);
+        return "=== Drink Option ===\n" +
+                "Size: " + drinkSize + "\n" + "Flavor: " + drinkFlavor;
     }
 }
