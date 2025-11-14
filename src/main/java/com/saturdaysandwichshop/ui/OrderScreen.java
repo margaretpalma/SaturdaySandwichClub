@@ -340,6 +340,7 @@ public class OrderScreen {
            else {
                System.out.println(item);
                System.out.printf("Price: $%.2f%n%n", item.getPrice());
+               System.out.println();
            }
         });
         double subTotal = order.getItems().stream()
@@ -350,7 +351,7 @@ public class OrderScreen {
                 double tax = subTotal * taxRate;
                 double total = subTotal + tax;
 
-                System.out.println("=========================");
+                System.out.println("====================================");
                 System.out.printf("Subtotal : $%.2f%n", subTotal);
                 System.out.printf("Tax (4.75%%) : $%.2f%n", tax);
                 System.out.printf("Total : $%.2f%n", total);

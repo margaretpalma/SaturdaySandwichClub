@@ -8,7 +8,7 @@ public class Chips extends ProductMain {
     private String chipType;
 //constructor
     public Chips(String chipType) {
-        super("Chips", 0.00);
+        super("Chips", 1.50);
         this.chipType = chipType;
     }
 //getters and setters

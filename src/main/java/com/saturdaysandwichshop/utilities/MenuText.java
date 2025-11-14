@@ -5,17 +5,17 @@ public class MenuText {
     //main menu formatting
 
     public static final String M_M = """
-            ===== ORDER MENU =====
+            ======== ORDER MENU =======
             1) Add Sandwich
             2) Add Drink
             3) Add Chips
             4) Checkout
             0) Cancel Order
-            ======================
+            ==========================
             """;
 
     public static final String B_M = """
-            ===== BREAD OPTIONS =====
+            ========== BREAD OPTIONS ===========
             1) White
             2) Wheat
             3) Rye
@@ -24,7 +24,7 @@ public class MenuText {
             """;
 
     public static final String S_O = """
-            ===== SIZE OPTIONS =====
+            ============ SIZE OPTIONS =============
             1) 4 inch 
             2) 8 inch 
             3) 12 inch 
@@ -32,7 +32,7 @@ public class MenuText {
             """;
 
     public static final String T_M = """
-            ============ TOPPINGS MENU =====
+            ============ TOPPINGS MENU =============
             1) Add Regular Toppings
             2) Add Meat (Premium)
             3) Add Cheese (Premium)
@@ -109,8 +109,12 @@ public class MenuText {
             """;
 
     public static final String C_H = """
-            ================== CHECKOUT ==================
-            Your Items:
+            ==================================================
+                                CHECKOUT                       
+            ==================================================
+                                IN YOUR CART:               
+            --------------------------------------------------
+            
             """;
 
     public static final String CHIP_M = """
