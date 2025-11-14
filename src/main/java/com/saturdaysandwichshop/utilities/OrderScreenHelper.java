@@ -19,7 +19,7 @@ public class OrderScreenHelper {
             String input = ConsoleHelper.promptForString(message).trim();
 
             //cancel
-            if (input.equals("0")) return List.of();
+            if (input.equals("0")) return List.of(0);
 
             //streams to clean input
             //convert string to int

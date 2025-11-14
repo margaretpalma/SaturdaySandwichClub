@@ -5,7 +5,6 @@ import com.saturdaysandwichshop.models.SignatureSubs.DextersLab;
 import com.saturdaysandwichshop.models.SignatureSubs.TommyPicklesDeluxe;
 import com.saturdaysandwichshop.orders.Order;
 import com.saturdaysandwichshop.orders.ReceiptFileManager;
-import com.saturdaysandwichshop.utilities.MenuPrint;
 import com.saturdaysandwichshop.utilities.OrderScreenHelper;
 import java.util.List;
 
@@ -29,7 +28,9 @@ public class OrderScreen {
             0) Cancel Order
             ==========================
             """);
+
             int choice = OrderScreenHelper.promptForOption("Choose An Option", 0, 4);
+
             switch (choice) {
                 case 1 -> addSandwich();
                 case 2 -> addDrink();
@@ -96,7 +97,13 @@ public class OrderScreen {
         };
 
 //size
-        MenuPrint.printSizeMenu();
+        System.out.println("""
+            ============ SIZE OPTIONS =============
+            1) 4 inch 
+            2) 8 inch 
+            3) 12 inch 
+            ======================
+            """);
         int sizeChoice = OrderScreenHelper.promptForOption("-----Choose Size Option-----", 1, 3);
         int size = switch (sizeChoice) {
             case 1 -> 4;
@@ -145,7 +152,13 @@ public class OrderScreen {
         };
 //flavor
 
-        MenuPrint.printDrinkFlavors();
+        System.out.println("""
+            ============ DRINK FLAVORS =================
+            1) Coke
+            2) Sprite
+            3) Lemonade
+            ======================
+            """);
         int drinkFlavorChoice = OrderScreenHelper.promptForOption("-----Choose Drink Flavor-----", 1, 3);
 
         String flavor = switch (drinkFlavorChoice) {
@@ -164,7 +177,13 @@ public class OrderScreen {
     //add chips - Doritos, Lays, Sunchips - 1.50
     private void addChips() {
 
-        MenuPrint.printChipMenu();
+        System.out.println("""
+            ================= CHIP MENU  =================
+            1) Doritos
+            2) Lays
+            3) Sunchips
+            ======================
+            """);
         int chipChoice = OrderScreenHelper.promptForOption("Choose Chip Type", 1, 3);
 
         String type = switch (chipChoice) {
@@ -183,7 +202,14 @@ public class OrderScreen {
     private void addToppings(Sandwich sandwich) {
         while (true) {
 
-            MenuPrint.printToppingMenu();
+            System.out.println("""
+            ============ TOPPINGS MENU =============
+            1) Add Regular Toppings
+            2) Add Meat (Premium)
+            3) Add Cheese (Premium)
+            4) Add Sauce
+            0) Finish Toppings
+            """);
             int choice = OrderScreenHelper.promptForOption("Choose An Option: ", 0, 4);
 
             //toppings options "menu"
@@ -207,10 +233,9 @@ public class OrderScreen {
     private void addRegularTopping(Sandwich s) {
 
         while (true) {
-            MenuPrint.printRegularToppingMenu();
-            List<Integer> choices = OrderScreenHelper.promptForChoices("Enter One or More toppings (Separate By Comma)",
-                    9);
-            if (choices.isEmpty()) {
+            System.out.println();
+            List<Integer> choices = OrderScreenHelper.promptForChoices("Enter One or More toppings (Separate By Comma), Press 0 to Exit!",9);
+            if (choices.contains(0)) {
                 System.out.println("Regular Toppings Added!");
                 return;
             }
@@ -241,10 +266,20 @@ public class OrderScreen {
     //steak, ham, salami, roast beef, chicken, bacon
     private void addMeatToppings(Sandwich s) {
 
-        MenuPrint.printPremiumMeatOptions();
+        System.out.println("""
+            ========== PREMIUM MEAT OPTIONS =========
+            1) Steak
+            2) Ham
+            3) Salami
+            4) Roast Beef
+            5) Chicken
+            6) Bacon
+            0) Done
+            ======================
+            """);
         List<Integer> choices = OrderScreenHelper.promptForChoices("Enter Meat Option (Separate By Comma 1, 3)", 6);
 
-        if (choices.isEmpty()) {
+        if (choices.contains(0)) {
             System.out.println("Finished add Meat");
             return;
         }
@@ -292,11 +327,19 @@ public class OrderScreen {
     //extra - .30, .60, .90
 
     private void addCheeseToppings(Sandwich s) {
-        MenuPrint.printCheeseToppings();
+        System.out.println("""
+            ============ CHEESE OPTIONS  ==========
+            1) American
+            2) Provolone
+            3) Cheddar 
+            4) Swiss
+            0) Cancel
+            ======================
+            """);
 
         List<Integer> choices = OrderScreenHelper.promptForChoices("Add Cheeses", 4);
 
-        if (choices.isEmpty()) {
+        if (choices.contains(0)) {
             System.out.println("Finished with cheese");
             return;
         }
@@ -344,11 +387,22 @@ public class OrderScreen {
     private void addSauce(Sandwich s) {
 
         while (true) {
-            MenuPrint.printSauceOptions();
+            System.out.println( """
+             ========== SAUCE OPTIONS  =============
+            1) Mayo
+            2) Mustard
+            3) Ketchup
+            4) Ranch
+            5) Thousand Island
+            6) Vinaigrette
+            7) Au Jus
+            0) Done
+            ======================
+            """);
 
             List<Integer> choices = OrderScreenHelper.promptForChoices("Enter Sauce Choice", 7);
 
-            if (choices.isEmpty()) {
+            if (choices.contains(0)) {
                 System.out.println("Finished with sauces");
                 return;
             }
@@ -378,7 +432,14 @@ public class OrderScreen {
     //checkout
     private boolean checkout() {
 
-        MenuPrint.printCheckoutMenu();
+        System.out.println("""
+            ==================================================
+                                CHECKOUT                       
+            ==================================================
+                                IN YOUR CART:               
+            --------------------------------------------------
+            
+            """);
         //print items in order
         order.getItems().forEach(item -> {
            if(item instanceof Sandwich s){

@@ -30,24 +30,24 @@ public class ReceiptFileManager {
     //save receipt to file
    //timestamp for receipts - Local Date
 
-    public void saveReceipt(Order order){
-        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
 
-
-        //file IN receipt
-
-    File file = new File(Receipt_Folder, timeStamp + ".txt");
-    try (FileWriter writer = new FileWriter(file)){
-        writer.write(Receipt.generate(order));
-
-        //print
-        System.out.println("Receipt Saved!" + file.getAbsolutePath());
-    }
-    catch (IOException e){
-        System.out.println("Error Saving Receipt: " + e.getMessage());
-    }
-  }
-}
+//        String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
+//
+//
+//        //file IN receipt
+//
+//    File file = new File(Receipt_Folder, timeStamp + ".txt");
+//    try (FileWriter writer = new FileWriter(file)){
+//        writer.write(Receipt.generate(order));
+//
+//        //print
+//        System.out.println("Receipt Saved!" + file.getAbsolutePath());
+//    }
+//    catch (IOException e){
+//        System.out.println("Error Saving Receipt: " + e.getMessage());
+//    }
+//  }
+//}
 
 
 
