@@ -22,6 +22,7 @@ public class Sandwich extends ProductMain {
         this.toasted = toasted;
 
     }
+
     //get/set
     public Bread getBread() {
         return bread;
@@ -62,16 +63,15 @@ public class Sandwich extends ProductMain {
         return sizePrice + toppingTotal;
     }
 
-//helper methods
+    //helper methods
     public String getToppingsList() {
         if (toppings.isEmpty()) return "No toppings";
         return toppings.stream()
                 .map(t -> t.getToppingName() +
-                        (t.isExtraPortion() ? " extra" : "") +
-                        (t.isPremiumTopping() ? " premium" : ""))
+                        (t.isExtraPortion() ? " *Extra*" : "") +
+                        (t.isPremiumTopping() ? " *Premium*" : ""))
                 .collect(Collectors.joining(", "));
     }
-
 
 //format display for receipt
     @Override

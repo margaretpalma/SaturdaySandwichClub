@@ -32,7 +32,7 @@ public class MenuText {
             """;
 
     public static final String T_M = """
-            ===== TOPPINGS MENU =====
+            ============ TOPPINGS MENU =====
             1) Add Regular Toppings
             2) Add Meat (Premium)
             3) Add Cheese (Premium)
@@ -41,7 +41,7 @@ public class MenuText {
             """;
 
     public static final String R_T_M = """
-            ===== REGULAR TOPPING MENU =====
+            =========== REGULAR TOPPING MENU =========
             1) Lettuce
             2) Peppers
             3) Onions
@@ -56,7 +56,7 @@ public class MenuText {
             """;
 
     public static final String MT_M = """
-            ===== PREMIUM MEAT OPTIONS ====
+            ========== PREMIUM MEAT OPTIONS =========
             1) Steak
             2) Ham
             3) Salami
@@ -68,7 +68,7 @@ public class MenuText {
             """;
 
     public static final String C_M = """
-            ===== CHEESE OPTIONS  =====
+            ============ CHEESE OPTIONS  ==========
             1) American
             2) Provolone
             3) Cheddar 
@@ -79,7 +79,7 @@ public class MenuText {
 
 
     public static final String S_M = """
-             ===== SAUCE OPTIONS  =====
+             ========== SAUCE OPTIONS  =============
             1) Mayo
             2) Mustard
             3) Ketchup
@@ -93,7 +93,7 @@ public class MenuText {
 
 
     public static final String D_S_M = """
-            ===== DRINK SIZES  =====
+            =============== DRINK SIZES  ===============
             1) Small ($2.00)
             2) Medium ($2.50)
             3) Large ($3.00)
@@ -101,7 +101,7 @@ public class MenuText {
             """;
 
     public static final String D_F_M = """
-            ===== DRINK FLAVORS =====
+            ============ DRINK FLAVORS =================
             1) Coke
             2) Sprite
             3) Lemonade
@@ -109,13 +109,12 @@ public class MenuText {
             """;
 
     public static final String C_H = """
-            ========= CHECKOUT =======
-            Your Items: 
-            ==========================
+            ================== CHECKOUT ==================
+            Your Items:
             """;
 
     public static final String CHIP_M = """
-            ===== CHIP MENU  =====
+            ================= CHIP MENU  =================
             1) Doritos 
             2) Lays
             3) Sunchips

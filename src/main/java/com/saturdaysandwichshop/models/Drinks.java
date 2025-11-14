@@ -43,7 +43,7 @@ public class Drinks extends ProductMain {
     @Override
     public String toString(){
         return String.format("""
-                Drink:
+                ====Drink Option====
                 Size: %s
                 Flavor: %s
                 """, drinkSize, drinkFlavor);

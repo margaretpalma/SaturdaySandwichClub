@@ -320,14 +320,27 @@ public class OrderScreen {
             }
         }
     }
+
+
+
     //checkout
     private void checkout() {
 
         MenuPrint.printCheckoutMenu();
         //print items in order
         order.getItems().forEach(item -> {
-            System.out.println(item);
-            System.out.printf("Price: $%.2f%n%n", item.getPrice());
+           if(item instanceof Sandwich s){
+               System.out.println("==== Sandwich ====");
+               System.out.println("Bread: " + s.getBread().getBreadType());
+               System.out.println("Size: " + s.getSize() + "\"");
+               System.out.println("Toasted: " + (s.isToasted() ? "Yes" : "No"));
+               System.out.println("Toppings: " + s.getToppingsList());
+               System.out.printf("Price: $%.2f%n%n", s.getPrice());
+           }
+           else {
+               System.out.println(item);
+               System.out.printf("Price: $%.2f%n%n", item.getPrice());
+           }
         });
         double subTotal = order.getItems().stream()
                 .mapToDouble(ProductMain::getPrice)
@@ -344,13 +357,19 @@ public class OrderScreen {
 
                 //order screen checkout option,
                 //todo: save to txt file (receipt)
-                boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Thanks for ordering from Saturday Sandwich ");
+                boolean finishOrder = OrderScreenHelper.promptForYesOrNo("Submit order for pickup? ");
+
                 if (finishOrder) {
                 //ask if they wnt a receipt here !!
                 //save receipt
-                    ReceiptFileManager fileManager = new ReceiptFileManager();
-                    fileManager.saveReceipt(order);
 
+                    boolean wantReceipt = OrderScreenHelper.promptForYesOrNo("Would you like a receipt?");
+
+                    if( wantReceipt) {
+                        ReceiptFileManager fileManager = new ReceiptFileManager();
+                        fileManager.saveReceipt(order);
+
+                    }
                 //clear for next order
                     order.clear();
                 } else {
