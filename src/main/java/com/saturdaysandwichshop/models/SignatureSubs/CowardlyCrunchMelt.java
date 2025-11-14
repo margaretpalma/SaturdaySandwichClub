@@ -8,7 +8,7 @@ public class CowardlyCrunchMelt extends Sandwich {
 
 
 
-    public CowardlyCrunchMelt(Bread bread, int size, boolean toasted) {
+    public CowardlyCrunchMelt() {
         super(new Bread("Rye"), 4, false);
 
         getToppings().add(new Toppings("Ham", true,true,2.00));

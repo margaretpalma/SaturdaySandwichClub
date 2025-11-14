@@ -6,7 +6,7 @@ import com.saturdaysandwichshop.models.Toppings;
 
 public class DextersLab extends Sandwich {
 
-    public DextersLab(Bread bread, int size, boolean toasted) {
+    public DextersLab(){
         super(new Bread("White"), 8, true);
 
         //toppings for speciality sandwich

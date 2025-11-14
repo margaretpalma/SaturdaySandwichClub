@@ -20,7 +20,15 @@ public class OrderScreen {
     public void displayOrderMenu() {
 
         while (true) {
-            MenuPrint.printMainMenu();
+            System.out.println("""
+            ======== ORDER MENU =======
+            1) Add Sandwich
+            2) Add Drink
+            3) Add Chips
+            4) Checkout
+            0) Cancel Order
+            ==========================
+            """);
             int choice = OrderScreenHelper.promptForOption("Choose An Option", 0, 4);
             switch (choice) {
                 case 1 -> addSandwich();
@@ -42,13 +50,15 @@ public class OrderScreen {
 
     private void addSandwich() {
         System.out.println("""
-                Speciality Sub
+                ===== WANT TO TRY A..... =======
+                ======== SPECIALTY SUB? ========
                 1) Dexter's Lab Secret Sub
                 2) Tommy Pickles Deluxe
                 3) Cowardly Crunch Melt
+                0) Build Your Own!
                 """);
 
-        int specialtyChoice = OrderScreenHelper.promptForOption("Choose Specialty Sandwich", 0,3);
+        int specialtyChoice = OrderScreenHelper.promptForOption("Enter Choice: ", 0,3);
         switch (specialtyChoice){
             case 1 -> {
                 order.addItem(new DextersLab());
@@ -68,9 +78,14 @@ public class OrderScreen {
             case 0 -> System.out.println("Okay! Build your own!");
         }
 
-
-
-        MenuPrint.printBreadMenu();
+        System.out.println("""
+            ========== BREAD OPTIONS ===========
+            1) White
+            2) Wheat
+            3) Rye
+            4) Wrap
+            ====================== 
+            """);
         int breadOption = OrderScreenHelper.promptForOption("-----Choose Bread Option-----", 1, 4);
         String breadType = switch (breadOption) {
             case 1 -> "White";
@@ -106,7 +121,13 @@ public class OrderScreen {
     //size and flavor
     public void addDrink() {
 
-        MenuPrint.printDrinkSizeMenu();
+        System.out.println("""
+            =============== DRINK SIZES  ===============
+            1) Small ($2.00)
+            2) Medium ($2.50)
+            3) Large ($3.00)
+            ======================
+            """);
         int drinkSizeChoice = OrderScreenHelper.promptForOption("-----Choose A Drink Size-----", 1, 3);
 
         String size = switch (drinkSizeChoice) {

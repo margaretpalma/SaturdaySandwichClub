@@ -5,7 +5,7 @@ import com.saturdaysandwichshop.models.Sandwich;
 
 public class TommyPicklesDeluxe extends Sandwich {
 
-    public TommyPicklesDeluxe(Bread bread, int size, boolean toasted) {
+    public TommyPicklesDeluxe() {
         super(new Bread("Wheat"), 12, false);
 
 

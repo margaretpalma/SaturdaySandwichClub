@@ -2,18 +2,6 @@ package com.saturdaysandwichshop.utilities;
 
 public class MenuText {
 
-    //main menu formatting
-
-    public static final String M_M = """
-            ======== ORDER MENU =======
-            1) Add Sandwich
-            2) Add Drink
-            3) Add Chips
-            4) Checkout
-            0) Cancel Order
-            ==========================
-            """;
-
     public static final String B_M = """
             ========== BREAD OPTIONS ===========
             1) White
